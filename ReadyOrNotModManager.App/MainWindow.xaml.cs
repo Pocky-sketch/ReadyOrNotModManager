@@ -111,7 +111,7 @@ public partial class MainWindow : Window
 
         SetupRoot.Visibility = Visibility.Collapsed;
         ShellRoot.Visibility = Visibility.Visible;
-        ShowPage(DashboardPage, "Dashboard", "Ready or Not mod deployment overview");
+        ShowPage(DashboardPage, "仪表盘", "Ready or Not 模组部署概览");
         _ = CheckForUpdatesAsync(force: false);
         _ = AutoTestNexusConnectionOnLaunchAsync();
     }
@@ -172,32 +172,32 @@ public partial class MainWindow : Window
         var gameOk = ReadyOrNotPaths.LooksLikeInstallDirectory(_settings.ReadyOrNotDirectory);
         var gameStatus = gameOk ? "Detected" : "Not detected";
         var gameVisual = DashboardStatusVisual.FromStatus(DashboardStatusKind.Game, gameStatus);
-        RailGameStatusText.Text = gameStatus;
+        RailGameStatusText.Text = UiText.Status(gameStatus);
         SetRailStatusIcon(RailGameStatusIcon, gameOk ? RailStatusState.Connected : RailStatusState.Disconnected);
-        DashboardGameStatusText.Text = gameStatus;
+        DashboardGameStatusText.Text = UiText.Status(gameStatus);
         DashboardGameHelperText.Text = gameVisual.HelperText;
         DashboardGameIcon.Kind = gameVisual.Icon;
         DashboardGameIcon.Foreground = ToneBrushes.ForTone(gameVisual.Tone);
         var nexusStatus = string.IsNullOrWhiteSpace(_settings.ApiKey) ? "Missing key" : _lastNexusStatus;
         var nexusVisual = DashboardStatusVisual.FromStatus(DashboardStatusKind.Nexus, nexusStatus);
-        RailNexusStatusText.Text = nexusStatus;
+        RailNexusStatusText.Text = UiText.Status(nexusStatus);
         SetRailStatusIcon(RailNexusStatusIcon, GetNexusRailStatus(nexusStatus));
         UpdateDashboardNexusStatusText(nexusStatus);
         DashboardNexusHelperText.Text = nexusVisual.HelperText;
         DashboardNexusIcon.Kind = nexusVisual.Icon;
         DashboardNexusIcon.Foreground = ToneBrushes.ForTone(nexusVisual.Tone);
         DashboardUpdateStatusText.Text = string.IsNullOrWhiteSpace(DashboardUpdateStatusText.Text)
-            ? $"Current: v{GetCurrentVersion()}"
+            ? $"当前：v{GetCurrentVersion()}"
             : DashboardUpdateStatusText.Text;
         ApplyUpdateVisual(DashboardUpdateStatusText.Text);
 
         var summary = DashboardSummaryFactory.Create(CreateManifestStore().Load(), _queue, CreateErrorLogStore().Load(), CreateActivityLogStore().Load());
-        SidebarVersionText.Text = $"MOD SUITE - VERSION: {GetDisplayVersion()}";
+        SidebarVersionText.Text = $"模组套件 - 版本：{GetDisplayVersion()}";
         InstalledModCountText.Text = summary.InstalledModCount.ToString();
         PendingQueueCountText.Text = summary.PendingQueueCount.ToString();
         ModpackCountText.Text = _profiles.Count.ToString();
         RecentActivityList.ItemsSource = summary.RecentActivity.Count == 0
-            ? [RecentActivityVisual.FromActivity(new RecentActivityItem(DateTimeOffset.UtcNow, "No recent activity yet"))]
+            ? [RecentActivityVisual.FromActivity(new RecentActivityItem(DateTimeOffset.UtcNow, "暂无活动记录"))]
             : summary.RecentActivity.Select(RecentActivityVisual.FromActivity).ToArray();
         RefreshQueueView();
     }
@@ -216,12 +216,12 @@ public partial class MainWindow : Window
         if (status.StartsWith(connectedPrefix, StringComparison.OrdinalIgnoreCase))
         {
             DashboardNexusPrefixText.Visibility = Visibility.Visible;
-            DashboardNexusStatusText.Text = status[connectedPrefix.Length..].Trim();
+            DashboardNexusStatusText.Text = UiText.Status(status[connectedPrefix.Length..].Trim());
             return;
         }
 
         DashboardNexusPrefixText.Visibility = Visibility.Collapsed;
-        DashboardNexusStatusText.Text = status;
+        DashboardNexusStatusText.Text = UiText.Status(status);
     }
 
     private void SetRailStatusIcon(PackIconMaterial icon, RailStatusState status)
@@ -281,19 +281,19 @@ public partial class MainWindow : Window
         LogsNavButton.Tag = page == LogsPage ? "Active" : null;
     }
 
-    private void DashboardNav_Click(object sender, RoutedEventArgs e) => ShowPage(DashboardPage, "Dashboard", "Ready or Not mod deployment overview");
+    private void DashboardNav_Click(object sender, RoutedEventArgs e) => ShowPage(DashboardPage, "仪表盘", "Ready or Not 模组部署概览");
 
-    private void ModsNav_Click(object sender, RoutedEventArgs e) => ShowPage(ModsPage, "Installed", "Installed files tracked by the local manifest");
+    private void ModsNav_Click(object sender, RoutedEventArgs e) => ShowPage(ModsPage, "已安装", "本地清单记录的已安装文件");
 
-    private void QueueNav_Click(object sender, RoutedEventArgs e) => ShowPage(QueuePage, "Mods", "Download and deploy selected Nexus files");
+    private void QueueNav_Click(object sender, RoutedEventArgs e) => ShowPage(QueuePage, "模组", "下载并部署所选的 Nexus 文件");
 
-    private void ModpacksNav_Click(object sender, RoutedEventArgs e) => ShowPage(ModpacksPage, "Modpacks", "Save and switch local mod profiles");
+    private void ModpacksNav_Click(object sender, RoutedEventArgs e) => ShowPage(ModpacksPage, "整合包", "保存并切换本地模组配置档");
 
-    private void DownloadsNav_Click(object sender, RoutedEventArgs e) => ShowPage(DownloadsPage, "Utilities", "Import, export, repair, and manage Ready or Not mod files.");
+    private void DownloadsNav_Click(object sender, RoutedEventArgs e) => ShowPage(DownloadsPage, "工具", "导入、导出、修复与管理 Ready or Not 模组文件。");
 
-    private void SettingsNav_Click(object sender, RoutedEventArgs e) => ShowPage(SettingsPage, "Settings", "Connection, folders, and advanced options");
+    private void SettingsNav_Click(object sender, RoutedEventArgs e) => ShowPage(SettingsPage, "Settings", "连接、目录与高级选项");
 
-    private void LogsNav_Click(object sender, RoutedEventArgs e) => ShowPage(LogsPage, "Logs/Errors", "Download and deployment failures");
+    private void LogsNav_Click(object sender, RoutedEventArgs e) => ShowPage(LogsPage, "Logs/Errors", "下载与部署失败记录");
 
     private void QueueFilter_Changed(object sender, RoutedEventArgs e)
     {
@@ -328,7 +328,7 @@ public partial class MainWindow : Window
     private void RefreshQueueView()
     {
         _queueView.Refresh();
-        QueueSummaryText.Text = $"{_queueView.Cast<object>().Count()} shown / {_queue.Count} total";
+        QueueSummaryText.Text = $"显示 {_queueView.Cast<object>().Count()} / 共 {_queue.Count} 项";
     }
 
     private async Task CheckForUpdatesAsync(bool force)
@@ -338,14 +338,14 @@ public partial class MainWindow : Window
             return;
         }
 
-        DashboardUpdateStatusText.Text = $"Current: v{GetCurrentVersion()} | Checking...";
+        DashboardUpdateStatusText.Text = $"当前：v{GetCurrentVersion()} | 检查中…";
         using var http = new HttpClient();
         var result = await new AppUpdateChecker(http).CheckLatestAsync(GetCurrentVersion(), CancellationToken.None);
         DashboardUpdateStatusText.Text = result.Status switch
         {
-            AppUpdateStatus.UpToDate => $"Current: v{GetCurrentVersion()} | Up to date",
-            AppUpdateStatus.UpdateAvailable => $"Current: v{GetCurrentVersion()} | {result.Message}",
-            _ => $"Current: v{GetCurrentVersion()} | Unable to check"
+            AppUpdateStatus.UpToDate => $"当前：v{GetCurrentVersion()} | 已是最新",
+            AppUpdateStatus.UpdateAvailable => $"当前：v{GetCurrentVersion()} | 有可用更新：{result.LatestTag}",
+            _ => $"当前：v{GetCurrentVersion()} | 无法检查"
         };
         ApplyUpdateVisual(DashboardUpdateStatusText.Text);
     }
@@ -353,7 +353,7 @@ public partial class MainWindow : Window
     private async void RefreshUpdateStatus_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         await CheckForUpdatesAsync(force: true);
-        SetStatus("Checked latest GitHub release.");
+        SetStatus("已检查 GitHub 最新版本。");
     }
 
     private static Version GetCurrentVersion()
@@ -370,7 +370,7 @@ public partial class MainWindow : Window
     private void SaveSettings_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        SetStatus("Settings saved.");
+        SetStatus("设置已保存。");
     }
 
     private async Task AutoTestNexusConnectionOnLaunchAsync()
@@ -380,7 +380,7 @@ public partial class MainWindow : Window
             return;
         }
 
-        SetStatus("Testing Nexus connection...", logActivity: false);
+        SetStatus("正在测试 Nexus 连接…", logActivity: false);
         await ValidateNexusConnectionAsync(_settings.ApiKey);
     }
 
@@ -393,25 +393,25 @@ public partial class MainWindow : Window
 
         ThemeManager.ApplyTheme(Resources, themeName);
         SaveSettings();
-        SetStatus($"Theme changed: {ThemeManager.GetTheme(themeName).DisplayName}");
+        SetStatus($"已切换主题：{ThemeManager.GetTheme(themeName).DisplayName}");
     }
 
     private void OpenApiKeyPage_Click(object sender, RoutedEventArgs e)
     {
         OpenUrl(NexusApiKeyPage);
-        SetStatus("Opened Nexus API key page.");
+        SetStatus("已打开 Nexus API 密钥页面。");
     }
 
     private void OpenReadyOrNotModsPage_Click(object sender, RoutedEventArgs e)
     {
         OpenUrl(ReadyOrNotNexusModsPage);
-        SetStatus("Opened Ready or Not Nexus mods page.");
+        SetStatus("已打开 Ready or Not 的 Nexus 模组页面。");
     }
 
     private void OpenReadyOrNotCollectionsPage_Click(object sender, RoutedEventArgs e)
     {
         OpenUrl(ReadyOrNotNexusCollectionsPage);
-        SetStatus("Opened Ready or Not Nexus collections page.");
+        SetStatus("已打开 Ready or Not 的 Nexus 合集页面。");
     }
 
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -470,7 +470,7 @@ public partial class MainWindow : Window
     {
         SocialsOverlay.Visibility = Visibility.Collapsed;
         HelpOverlay.Visibility = Visibility.Visible;
-        SetStatus("Opened help guide.", logActivity: false);
+        SetStatus("已打开使用指南。", logActivity: false);
     }
 
     private void CloseHelp_Click(object sender, RoutedEventArgs e)
@@ -482,7 +482,7 @@ public partial class MainWindow : Window
     {
         HelpOverlay.Visibility = Visibility.Collapsed;
         SocialsOverlay.Visibility = Visibility.Visible;
-        SetStatus("Opened support and socials.", logActivity: false);
+        SetStatus("已打开支持与社交链接。", logActivity: false);
     }
 
     private void CloseSocials_Click(object sender, RoutedEventArgs e)
@@ -493,19 +493,19 @@ public partial class MainWindow : Window
     private void OpenGithub_Click(object sender, RoutedEventArgs e)
     {
         OpenUrl("https://github.com/jdharleyjones/");
-        SetStatus("Opened GitHub support page.");
+        SetStatus("已打开 GitHub 支持页面。");
     }
 
     private void OpenInstagram_Click(object sender, RoutedEventArgs e)
     {
         OpenUrl("https://www.instagram.com/cyb3r.sk4ter/");
-        SetStatus("Opened Instagram support page.");
+        SetStatus("已打开 Instagram 支持页面。");
     }
 
     private void CopyDiscord_Click(object sender, RoutedEventArgs e)
     {
         System.Windows.Clipboard.SetText("inconspicuousjawa");
-        SetStatus("Copied Discord username: inconspicuousjawa");
+        SetStatus("已复制 Discord 用户名：inconspicuousjawa");
     }
 
     private void MainWindow_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -523,8 +523,8 @@ public partial class MainWindow : Window
         SaveSettings();
         Directory.CreateDirectory(_settings.ProfileLibraryDirectory);
         OpenFolder(_settings.ProfileLibraryDirectory);
-        ShowPage(ModpacksPage, "Modpacks", "Save, load, and switch between local mod sets");
-        SetStatus("Opened local modpacks folder and Modpacks page.");
+        ShowPage(ModpacksPage, "整合包", "保存、加载并切换本地模组组合");
+        SetStatus("已打开本地整合包目录与「整合包」页面。");
     }
 
     private void BrowseDownloadDirectory_Click(object sender, RoutedEventArgs e)
@@ -541,7 +541,7 @@ public partial class MainWindow : Window
         SaveSettings();
         Directory.CreateDirectory(_settings.DownloadDirectory);
         OpenFolder(_settings.DownloadDirectory);
-        SetStatus("Opened download folder.");
+        SetStatus("已打开下载目录。");
     }
 
     private void BrowseGameDirectory_Click(object sender, RoutedEventArgs e)
@@ -609,7 +609,7 @@ public partial class MainWindow : Window
             if (string.IsNullOrWhiteSpace(apiKey))
             {
                 _lastNexusStatus = "Missing key";
-                ShowWarning("Enter a Nexus API key before testing.");
+                ShowWarning("测试前请先填入 Nexus API 密钥。");
                 ValidateSetupFields();
                 return;
             }
@@ -635,15 +635,15 @@ public partial class MainWindow : Window
         var detected = ReadyOrNotInstallDetector.FindInstallDirectory();
         if (string.IsNullOrWhiteSpace(detected))
         {
-            ShowWarning("Ready or Not was not found in the usual Steam library folders.");
-            SetupGameStatusText.Text = "Auto-detect could not find Ready or Not";
+            ShowWarning("在常见的 Steam 库目录中未找到 Ready or Not。");
+            SetupGameStatusText.Text = "自动检测未能找到 Ready or Not";
             SetupGameStatusText.Foreground = FindBrush("DangerBrush");
             return;
         }
 
         SetupGameDirectoryBox.Text = detected;
         GameDirectoryBox.Text = detected;
-        SetStatus("Ready or Not folder detected.");
+        SetStatus("已检测到 Ready or Not 目录。");
         ValidateSetupFields();
     }
 
@@ -653,7 +653,7 @@ public partial class MainWindow : Window
         if (string.IsNullOrWhiteSpace(SetupApiKeyBox.Password) ||
             !ReadyOrNotPaths.LooksLikeInstallDirectory(SetupGameDirectoryBox.Text))
         {
-            SetupMessageText.Text = "Add a Nexus API key and a valid Ready or Not folder before continuing.";
+            SetupMessageText.Text = "继续前请先填入 Nexus API 密钥并指定有效的 Ready or Not 目录。";
             SetupMessageText.Foreground = FindBrush("DangerBrush");
             return;
         }
@@ -663,8 +663,8 @@ public partial class MainWindow : Window
         SetupRoot.Visibility = Visibility.Collapsed;
         ShellRoot.Visibility = Visibility.Visible;
         RefreshShellData();
-        ShowPage(DashboardPage, "Dashboard", "Ready or Not mod deployment overview");
-        SetStatus("Setup complete.");
+        ShowPage(DashboardPage, "仪表盘", "Ready or Not 模组部署概览");
+        SetStatus("设置完成。");
     }
 
     private void ResetSetupWizard_Click(object sender, RoutedEventArgs e)
@@ -673,7 +673,7 @@ public partial class MainWindow : Window
         LoadSettings();
         ShellRoot.Visibility = Visibility.Collapsed;
         SetupRoot.Visibility = Visibility.Visible;
-        SetStatus("Setup wizard reset.");
+        SetStatus("设置向导已重置。");
     }
 
     private void BrowseProfileLibraryDirectory_Click(object sender, RoutedEventArgs e)
@@ -690,7 +690,7 @@ public partial class MainWindow : Window
         SaveSettings();
         Directory.CreateDirectory(_settings.ProfileLibraryDirectory);
         OpenFolder(_settings.ProfileLibraryDirectory);
-        SetStatus("Opened modpack library folder.");
+        SetStatus("已打开整合包库目录。");
     }
 
     private async void AddUrl_Click(object sender, RoutedEventArgs e)
@@ -701,7 +701,7 @@ public partial class MainWindow : Window
 
         if (string.IsNullOrWhiteSpace(input.Text))
         {
-            ShowWarning("Input a Nexus mod or collection URL before adding to the Mods queue.");
+            ShowWarning("加入模组队列前请先输入 Nexus 模组或合集链接。");
             return;
         }
 
@@ -738,7 +738,7 @@ public partial class MainWindow : Window
                 SourceUrl = mod.SourceUrl,
                 Status = "Needs API key or browser import"
             });
-            SetStatus("Added mod placeholder. Save an API key to resolve files automatically.");
+            SetStatus("已添加模组占位项。保存 API 密钥后可自动解析文件。");
             return;
         }
 
@@ -749,7 +749,7 @@ public partial class MainWindow : Window
             AddQueueItem(file);
         }
 
-        SetStatus($"Added {files.Count} file(s) for mod {mod.ModId}.");
+        SetStatus($"已为模组 {mod.ModId} 添加 {files.Count} 个文件。");
     }
 
     private async Task AddCollectionReferenceAsync(HttpClient http, NexusCollectionReference collection)
@@ -766,7 +766,7 @@ public partial class MainWindow : Window
             AddQueueItem(file);
         }
 
-        SetStatus($"Added {files.Count} collection item(s).");
+        SetStatus($"已添加 {files.Count} 个合集条目。");
     }
 
     private async void DownloadMissing_Click(object sender, RoutedEventArgs e)
@@ -781,13 +781,13 @@ public partial class MainWindow : Window
             var items = _queue.Where(item => string.IsNullOrWhiteSpace(item.ArchivePath)).ToArray();
             if (_queue.Count == 0)
             {
-                ShowWarning("Unable to download missing mods because no Nexus URLs or archives have been added.");
+                ShowWarning("未添加任何 Nexus 链接或压缩包，无法下载缺失的模组。");
                 return;
             }
 
             if (items.Length == 0)
             {
-                ShowWarning("There are no missing downloads. Add a Nexus URL or remove existing downloads before trying again.");
+                ShowWarning("没有缺失的下载项。请添加 Nexus 链接，或先移除已有的下载项再重试。");
                 return;
             }
 
@@ -797,7 +797,7 @@ public partial class MainWindow : Window
             {
                 var item = items[index];
                 var itemNumber = index + 1;
-                SetProgress(index / (double)total, $"Downloading {itemNumber} of {items.Length}");
+                SetProgress(index / (double)total, $"正在下载：第 {itemNumber} / {items.Length} 项");
                 if (item.FileId <= 0 || string.IsNullOrWhiteSpace(_settings.ApiKey))
                 {
                     item.Status = "Open Nexus page and import zip";
@@ -811,7 +811,7 @@ public partial class MainWindow : Window
                     var downloadUri = await nexus.GetDownloadLinkAsync("readyornot", item.ModId, item.FileId, CancellationToken.None);
                     item.Status = "Downloading";
                     var fileProgress = new Progress<double>(value =>
-                        SetProgress((index + Math.Clamp(value, 0, 1)) / total, $"Downloading {itemNumber} of {items.Length}"));
+                        SetProgress((index + Math.Clamp(value, 0, 1)) / total, $"正在下载：第 {itemNumber} / {items.Length} 项"));
                     item.ArchivePath = await downloader.DownloadAsync(
                         downloadUri,
                         _settings.DownloadDirectory,
@@ -828,9 +828,9 @@ public partial class MainWindow : Window
                 }
             }
 
-            SetProgress(1, "Download pass complete");
+            SetProgress(1, "下载批次完成");
             RefreshDashboard();
-            SetStatus("Download pass complete.");
+            SetStatus("下载批次完成。");
         });
     }
 
@@ -839,7 +839,7 @@ public partial class MainWindow : Window
         var items = GetSelectedItems(requireSelection: true);
         if (items.Count == 0)
         {
-            ShowWarning("Select a mod with a Nexus page before opening it.");
+            ShowWarning("请先选择带有 Nexus 页面的模组再打开。");
             return;
         }
 
@@ -853,7 +853,7 @@ public partial class MainWindow : Window
 
         if (opened == 0)
         {
-            ShowWarning("The selected mod does not have a Nexus page URL to open.");
+            ShowWarning("所选模组没有可打开的 Nexus 页面链接。");
         }
     }
 
@@ -864,7 +864,7 @@ public partial class MainWindow : Window
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Title = "Select downloaded mod archive",
+            Title = "选择已下载的模组压缩包",
             Filter = "Mod archives (*.zip;*.rar;*.7z;*.7zip)|*.zip;*.rar;*.7z;*.7zip|All files (*.*)|*.*",
             Multiselect = true,
             InitialDirectory = Directory.Exists(_settings.ImportDirectory) ? _settings.ImportDirectory : Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
@@ -878,7 +878,7 @@ public partial class MainWindow : Window
             SaveSettings();
             QueueGrid.SelectedItem = imported.LastOrDefault();
             RefreshDashboard();
-            SetStatus($"Imported {imported.Count} archive file(s).");
+            SetStatus($"已导入 {imported.Count} 个压缩包文件。");
         }
     }
 
@@ -887,13 +887,13 @@ public partial class MainWindow : Window
         var profile = SharedModpackSelector.SelectedItem as ModProfile ?? GetSelectedProfile();
         if (profile is null)
         {
-            ShowWarning("Select a modpack to export.");
+            ShowWarning("请选择要导出的整合包。");
             return;
         }
 
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
-            Title = "Export modpack links",
+            Title = "导出整合包链接",
             Filter = "Ready or Not modpack links (*.ronmodpack.json)|*.ronmodpack.json",
             FileName = $"{SanitizeFileName(profile.Name)}.ronmodpack.json",
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
@@ -907,11 +907,11 @@ public partial class MainWindow : Window
         try
         {
             var result = ModpackShareStore.Export(profile, dialog.FileName, DateTimeOffset.UtcNow);
-            SetStatus($"Exported {result.ExportedCount} mod link(s) from {profile.Name}. Skipped {result.SkippedCount} local-only item(s).");
+            SetStatus($"已从 {profile.Name} 导出 {result.ExportedCount} 个模组链接，跳过 {result.SkippedCount} 个仅本地项。");
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
-            ShowWarning($"Could not export modpack: {ex.Message}");
+            ShowWarning($"导出整合包失败：{ex.Message}");
         }
     }
 
@@ -920,7 +920,7 @@ public partial class MainWindow : Window
         SaveSettings();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Title = "Import modpack links",
+            Title = "导入整合包链接",
             Filter = "Ready or Not modpack links (*.ronmodpack.json)|*.ronmodpack.json|JSON files (*.json)|*.json",
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
         };
@@ -940,13 +940,13 @@ public partial class MainWindow : Window
             SharedModpackSelector.SelectedItem = _profiles.FirstOrDefault(item => item.ProfileId == profile.ProfileId);
             ProfilesGrid.SelectedItem = SharedModpackSelector.SelectedItem;
             LoadProfileIntoQueue(profile);
-            ShowPage(QueuePage, "Mods", "Download and deploy selected Nexus files");
+            ShowPage(QueuePage, "模组", "下载并部署所选的 Nexus 文件");
             RefreshDashboard();
-            SetStatus($"Imported modpack links: {profile.Name} ({profile.Items.Count} mod(s)).");
+            SetStatus($"已导入整合包链接：{profile.Name}（{profile.Items.Count} 个模组）。");
         }
         catch (Exception ex) when (ex is InvalidDataException or IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
         {
-            ShowWarning($"Could not import modpack links: {ex.Message}");
+            ShowWarning($"导入整合包链接失败：{ex.Message}");
         }
     }
 
@@ -955,7 +955,7 @@ public partial class MainWindow : Window
         var items = GetSelectedItems(requireSelection: true);
         if (items.Count == 0)
         {
-            ShowWarning("Select a queue item before deleting a downloaded archive.");
+            ShowWarning("删除已下载压缩包前请先选择一个队列项。");
             return;
         }
 
@@ -965,7 +965,7 @@ public partial class MainWindow : Window
 
         if (archives.Length == 0)
         {
-            ShowWarning("Selected item has no downloaded archive to delete.");
+            ShowWarning("所选项目没有可删除的已下载压缩包。");
             return;
         }
 
@@ -988,7 +988,7 @@ public partial class MainWindow : Window
             item.Status = string.IsNullOrWhiteSpace(item.InstallId) ? "Download deleted" : "Deployed, download deleted";
         }
 
-        SetStatus("Downloaded archive file(s) deleted.");
+        SetStatus("已删除下载的压缩包文件。");
     }
 
     private void RemoveSelectedQueueItems_Click(object sender, RoutedEventArgs e)
@@ -996,13 +996,13 @@ public partial class MainWindow : Window
         var items = GetSelectedItems(requireSelection: true);
         if (items.Count == 0)
         {
-            ShowWarning("Select queue items before removing them.");
+            ShowWarning("移除前请先选择队列项。");
             return;
         }
 
         var removed = QueueDeploymentPlanner.RemoveSelectedItems(_queue, items);
         RefreshDashboard();
-        SetStatus($"Removed {removed.Count} queue item(s).");
+        SetStatus($"已移除 {removed.Count} 个队列项。");
     }
 
     private async void DeploySelected_Click(object sender, RoutedEventArgs e)
@@ -1010,13 +1010,13 @@ public partial class MainWindow : Window
         var selected = GetSelectedItems(requireSelection: true).ToArray();
         if (selected.Length == 0)
         {
-            ShowWarning("Select one or more downloaded mods before using Deploy selected.");
+            ShowWarning("使用「部署所选」前请先选择一个或多个已下载的模组。");
             return;
         }
 
         if (selected.All(item => string.IsNullOrWhiteSpace(item.ArchivePath)))
         {
-            ShowWarning("The selected mod has no downloaded archive. Download it first or use Import archive.");
+            ShowWarning("所选模组没有已下载的压缩包。请先下载，或使用「导入压缩包」。");
             return;
         }
 
@@ -1035,7 +1035,7 @@ public partial class MainWindow : Window
             var deployable = QueueDeploymentPlanner.GetDeployableDownloadedItems(_queue);
             if (deployable.Count == 0)
             {
-                ShowWarning("No downloaded queue items are ready to deploy. Download missing items or import archives first.");
+                ShowWarning("没有可部署的已下载队列项。请先下载缺失项或导入压缩包。");
                 return;
             }
 
@@ -1047,7 +1047,7 @@ public partial class MainWindow : Window
     {
         if (items.Count == 0)
         {
-            ShowWarning("There are no queue items selected for deployment.");
+            ShowWarning("没有选中任何要部署的队列项。");
             return;
         }
 
@@ -1062,7 +1062,7 @@ public partial class MainWindow : Window
         {
             var item = items[index];
             var itemNumber = index + 1;
-            SetProgress(index / (double)total, $"Deploying {itemNumber} of {items.Count}");
+            SetProgress(index / (double)total, $"正在部署：第 {itemNumber} / {items.Count} 项");
             if (!File.Exists(item.ArchivePath))
             {
                 item.Status = "Missing zip";
@@ -1075,7 +1075,7 @@ public partial class MainWindow : Window
                 var selectedEntries = ResolveSelectedArchiveEntries(item);
                 var itemIndex = index;
                 var deployProgress = new Progress<double>(value =>
-                    SetProgress((itemIndex + Math.Clamp(value, 0, 1)) / total, $"Deploying {itemNumber} of {items.Count}"));
+                    SetProgress((itemIndex + Math.Clamp(value, 0, 1)) / total, $"正在部署：第 {itemNumber} / {items.Count} 项"));
                 var request = new DeploymentRequest(
                     ModName: item.ModName,
                     SourceUrl: item.SourceUrl,
@@ -1102,7 +1102,7 @@ public partial class MainWindow : Window
             await Task.Yield();
         }
 
-        SetProgress(1, "Deployment complete");
+        SetProgress(1, "部署完成");
         RefreshShellData();
         SetStatus(completionMessage);
     }
@@ -1112,7 +1112,7 @@ public partial class MainWindow : Window
         var selectedItems = GetSelectedItems(requireSelection: true);
         if (selectedItems.Count == 0)
         {
-            ShowWarning("Select deployed queue items before uninstalling.");
+            ShowWarning("卸载前请先选择已部署的队列项。");
             return;
         }
 
@@ -1136,7 +1136,7 @@ public partial class MainWindow : Window
             item.Status = "Uninstalled";
         }
 
-        SetStatus("Uninstall complete.");
+        SetStatus("卸载完成。");
         RefreshShellData();
     }
 
@@ -1145,7 +1145,7 @@ public partial class MainWindow : Window
         var completed = _queue.Where(item => item.Status is "Deployed" or "Uninstalled").ToArray();
         if (completed.Length == 0)
         {
-            ShowWarning("There are no completed queue items to clear.");
+            ShowWarning("没有可清除的已完成队列项。");
             return;
         }
 
@@ -1155,7 +1155,7 @@ public partial class MainWindow : Window
         }
 
         RefreshDashboard();
-        SetStatus($"Cleared {completed.Length} completed queue item(s).");
+        SetStatus($"已清除 {completed.Length} 个已完成队列项。");
     }
 
     private void OpenProfiles_Click(object sender, RoutedEventArgs e)
@@ -1192,8 +1192,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        SetStatus("Ready or Not Paks folder was not found.");
-        ShowWarning("Ready or Not Paks folder was not found. Check the game install folder in Settings.");
+        SetStatus("未找到 Ready or Not 的 Paks 目录。");
+        ShowWarning("未找到 Ready or Not 的 Paks 目录，请在设置中检查游戏安装目录。");
     }
 
     private void OpenGameFolder_Click(object sender, RoutedEventArgs e)
@@ -1205,8 +1205,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        SetStatus("Ready or Not install folder was not found.");
-        ShowWarning("Ready or Not install folder was not found. Check the game install folder in Settings.");
+        SetStatus("未找到 Ready or Not 安装目录。");
+        ShowWarning("未找到 Ready or Not 安装目录，请在设置中检查游戏安装目录。");
     }
 
     private void RunGame_Click(object sender, RoutedEventArgs e)
@@ -1237,7 +1237,7 @@ public partial class MainWindow : Window
         var selected = InstalledModsGrid.SelectedItems.Cast<InstalledModRecord>().ToArray();
         if (selected.Length == 0)
         {
-            ShowWarning("Select installed mods before uninstalling.");
+            ShowWarning("卸载前请先选择已安装的模组。");
             return;
         }
 
@@ -1248,7 +1248,7 @@ public partial class MainWindow : Window
         }
 
         RefreshShellData();
-        SetStatus("Selected installed mods uninstalled.");
+        SetStatus("已卸载所选模组。");
     }
 
     private void SaveProfileNew_Click(object sender, RoutedEventArgs e)
@@ -1261,14 +1261,14 @@ public partial class MainWindow : Window
         });
         if (profile.Items.Count == 0)
         {
-            ShowWarning("Deploy mods before saving a modpack. Modpacks now snapshot installed mods only.");
+            ShowWarning("保存整合包前请先部署模组。整合包现在只记录已安装的模组。");
             return;
         }
 
         CreateProfileStore().Save(profile, copyArchives: true);
         RefreshProfiles();
         ProfilesGrid.SelectedItem = _profiles.FirstOrDefault(item => item.ProfileId == profile.ProfileId);
-        SetStatus($"Saved modpack from installed mods: {profile.Name}");
+        SetStatus($"已根据已安装模组保存整合包：{profile.Name}");
     }
 
     private void UpdateProfileSelected_Click(object sender, RoutedEventArgs e)
@@ -1287,13 +1287,13 @@ public partial class MainWindow : Window
         profile = CreateProfileFromInstalledMods(profile);
         if (profile.Items.Count == 0)
         {
-            ShowWarning("Deploy mods before updating a modpack. Modpacks now snapshot installed mods only.");
+            ShowWarning("更新整合包前请先部署模组。整合包现在只记录已安装的模组。");
             return;
         }
 
         CreateProfileStore().Save(profile, copyArchives: true);
         RefreshProfiles();
-        SetStatus($"Updated modpack from installed mods: {profile.Name}");
+        SetStatus($"已根据已安装模组更新整合包：{profile.Name}");
     }
 
     private void LoadProfileSelected_Click(object sender, RoutedEventArgs e)
@@ -1305,7 +1305,7 @@ public partial class MainWindow : Window
         }
 
         LoadProfileIntoQueue(profile);
-        ShowPage(QueuePage, "Mods", "Download and deploy selected Nexus files");
+        ShowPage(QueuePage, "模组", "下载并部署所选的 Nexus 文件");
     }
 
     private async void ActivateProfileSelected_Click(object sender, RoutedEventArgs e)
@@ -1344,7 +1344,7 @@ public partial class MainWindow : Window
 
         CreateProfileStore().Delete(profile.ProfileId);
         RefreshProfiles();
-        SetStatus($"Deleted modpack: {profile.Name}");
+        SetStatus($"已删除整合包：{profile.Name}");
     }
 
     private void ProfilesGrid_PreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -1371,7 +1371,7 @@ public partial class MainWindow : Window
             : ProfileNameBox.Text.Trim();
         if (string.IsNullOrWhiteSpace(requestedName))
         {
-            ShowWarning("Rename canceled.");
+            ShowWarning("已取消重命名。");
             return;
         }
 
@@ -1385,7 +1385,7 @@ public partial class MainWindow : Window
         RefreshProfiles();
         ProfilesGrid.SelectedItem = _profiles.FirstOrDefault(item => item.ProfileId == profile.ProfileId);
         ProfileNameBox.Clear();
-        SetStatus($"Renamed modpack: {oldName} -> {requestedName.Trim()}");
+        SetStatus($"已重命名整合包：{oldName} → {requestedName.Trim()}");
     }
 
     private void OpenErrorNexus_Click(object sender, RoutedEventArgs e)
@@ -1445,7 +1445,7 @@ public partial class MainWindow : Window
             Archive: {entry.ArchivePath}
             Ready or Not folder: {entry.ReadyOrNotDirectory}
             """);
-        SetStatus("Manual fix note copied.");
+        SetStatus("手动修复说明已复制。");
     }
 
     private void ClearErrors_Click(object sender, RoutedEventArgs e)
@@ -1453,7 +1453,7 @@ public partial class MainWindow : Window
         CreateErrorLogStore().Clear();
         RefreshErrors();
         RefreshDashboard();
-        SetStatus("Errors cleared.");
+        SetStatus("错误已清除。");
     }
 
     private void ClearUserData_Click(object sender, RoutedEventArgs e)
@@ -1493,7 +1493,7 @@ public partial class MainWindow : Window
         LoadSettings();
         ShellRoot.Visibility = Visibility.Collapsed;
         SetupRoot.Visibility = Visibility.Visible;
-        SetStatus("User data cleared.", logActivity: false);
+        SetStatus("用户数据已清除。", logActivity: false);
     }
 
     private void SaveSettings(bool? setupCompleted = null, bool? forceSetupWizard = null)
@@ -1658,7 +1658,7 @@ public partial class MainWindow : Window
             _queue.Add(CreateQueueItem(profile, profileItem));
         }
 
-        SetStatus($"Loaded modpack: {profile.Name}");
+        SetStatus($"已加载整合包：{profile.Name}");
     }
 
     private async Task ActivateProfileAsync(ModProfile profile)
@@ -1680,7 +1680,7 @@ public partial class MainWindow : Window
         for (var index = 0; index < _queue.Count; index++)
         {
             var item = _queue[index];
-            SetProgress(index / (double)total, $"Activating {index + 1} of {_queue.Count}");
+            SetProgress(index / (double)total, $"正在激活：第 {index + 1} / {_queue.Count} 项");
             if (!File.Exists(item.ArchivePath))
             {
                 item.Status = "Missing archive";
@@ -1692,7 +1692,7 @@ public partial class MainWindow : Window
             {
                 var itemIndex = index;
                 var deployProgress = new Progress<double>(value =>
-                    SetProgress((itemIndex + Math.Clamp(value, 0, 1)) / total, $"Activating {itemIndex + 1} of {_queue.Count}"));
+                    SetProgress((itemIndex + Math.Clamp(value, 0, 1)) / total, $"正在激活：第 {itemIndex + 1} / {_queue.Count} 项"));
                 var request = new DeploymentRequest(
                     ModName: item.ModName,
                     SourceUrl: item.SourceUrl,
@@ -1720,8 +1720,8 @@ public partial class MainWindow : Window
         _settings.ActiveProfileId = profile.ProfileId;
         SaveSettings();
         CreateProfileStore().Save(CreateProfileFromQueue(profile), copyArchives: false);
-        SetProgress(1, "Profile activated");
-        SetStatus($"Activated modpack: {profile.Name}");
+        SetProgress(1, "配置档已激活");
+        SetStatus($"已激活整合包：{profile.Name}");
     }
 
     private ModProfile CreateProfileFromQueue(ModProfile profile)
@@ -1769,7 +1769,7 @@ public partial class MainWindow : Window
         var profile = ProfilesGrid.SelectedItem as ModProfile;
         if (profile is null)
         {
-            ShowWarning("Select a modpack first.");
+            ShowWarning("请先选择一个整合包。");
         }
 
         return profile;
@@ -1780,7 +1780,7 @@ public partial class MainWindow : Window
         var entry = ErrorsGrid.SelectedItem as ErrorLogEntry;
         if (entry is null)
         {
-            ShowWarning("Select an error first.");
+            ShowWarning("请先选择一条错误记录。");
         }
 
         return entry;
@@ -1835,7 +1835,7 @@ public partial class MainWindow : Window
         var dialog = new Window
         {
             Owner = this,
-            Title = "Rename modpack",
+            Title = "重命名整合包",
             Width = 420,
             Height = 170,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -1939,7 +1939,7 @@ public partial class MainWindow : Window
         try
         {
             IsEnabled = false;
-            SetStatus("Working...", logActivity: false);
+            SetStatus("处理中…", logActivity: false);
             SetProgress(0, string.Empty);
             await action();
         }
@@ -2031,6 +2031,6 @@ public partial class MainWindow : Window
             Message = exception.Message,
             Detail = exception.ToString()
         });
-        SetStatus($"{operation} failed for {item.ModName}: {exception.Message}");
+        SetStatus($"{operation} 失败：{item.ModName}：{exception.Message}");
     }
 }

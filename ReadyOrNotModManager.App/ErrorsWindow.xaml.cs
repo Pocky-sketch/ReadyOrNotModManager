@@ -98,7 +98,7 @@ public partial class ErrorsWindow : Window
         var entry = ErrorsGrid.SelectedItem as ErrorLogEntry;
         if (entry is null)
         {
-            System.Windows.MessageBox.Show(this, "Select an error first.", "Ready or Not Mod Manager", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Windows.MessageBox.Show(this, "请先选择一条错误记录。", "Ready or Not Mod Manager", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         return entry;

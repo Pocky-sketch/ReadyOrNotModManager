@@ -154,7 +154,7 @@ public partial class ProfilesWindow : Window
         var profile = ProfilesGrid.SelectedItem as ModProfile;
         if (profile is null)
         {
-            System.Windows.MessageBox.Show(this, "Select a profile first.", "Ready or Not Mod Manager", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Windows.MessageBox.Show(this, "请先选择一个配置档。", "Ready or Not Mod Manager", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         return profile;

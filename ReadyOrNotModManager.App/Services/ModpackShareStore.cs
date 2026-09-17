@@ -67,22 +67,22 @@ public static class ModpackShareStore
     {
         using var stream = File.OpenRead(path);
         var share = JsonSerializer.Deserialize<ModpackShareFile>(stream, Options)
-            ?? throw new InvalidDataException("The selected modpack share file is empty.");
+            ?? throw new InvalidDataException("该整合包分享文件为空。");
 
         if (!share.Format.Equals(Format, StringComparison.OrdinalIgnoreCase) || share.FormatVersion != FormatVersion)
         {
-            throw new InvalidDataException("The selected file is not a supported Ready or Not Mod Manager modpack share file.");
+            throw new InvalidDataException("所选文件不是受支持的 Ready Or Not Mod Manager 整合包分享文件。");
         }
 
         share.Items = share.Items.Where(IsShareable).ToList();
         if (share.Items.Count == 0)
         {
-            throw new InvalidDataException("The selected modpack share file does not contain any Nexus mod links.");
+            throw new InvalidDataException("该整合包分享文件中没有任何 Nexus 模组链接。");
         }
 
         if (string.IsNullOrWhiteSpace(share.ModpackName))
         {
-            share.ModpackName = "Imported modpack";
+            share.ModpackName = "已导入整合包";
         }
 
         return share;
@@ -107,14 +107,14 @@ public static class ModpackShareStore
 
     private static string GetUniqueProfileName(string name, ModProfileStore profileStore, DateTimeOffset importedAtUtc)
     {
-        var trimmed = string.IsNullOrWhiteSpace(name) ? "Imported modpack" : name.Trim();
+        var trimmed = string.IsNullOrWhiteSpace(name) ? "已导入整合包" : name.Trim();
         var existing = profileStore.LoadAll();
         if (existing.All(profile => !profile.Name.Equals(trimmed, StringComparison.OrdinalIgnoreCase)))
         {
             return trimmed;
         }
 
-        return $"{trimmed} imported {importedAtUtc:yyyy-MM-dd HH-mm}";
+        return $"{trimmed} 导入于 {importedAtUtc:yyyy-MM-dd HH-mm}";
     }
 
     private static bool IsShareable(ModProfileItem item)

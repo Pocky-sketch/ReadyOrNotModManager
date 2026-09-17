@@ -25,8 +25,8 @@ public static class DashboardSummaryFactory
         var activity = activityLog.Entries
             .Select(entry => new RecentActivityItem(entry.TimestampUtc, entry.Message))
             .Concat(log.Entries
-            .Select(entry => new RecentActivityItem(entry.TimestampUtc, $"{entry.Operation} failed for {entry.ModName}"))
-            .Concat(manifest.Records.Select(record => new RecentActivityItem(record.InstalledAtUtc, $"{record.ModName} deployed"))))
+            .Select(entry => new RecentActivityItem(entry.TimestampUtc, $"{entry.Operation} 失败：{entry.ModName}"))
+            .Concat(manifest.Records.Select(record => new RecentActivityItem(record.InstalledAtUtc, $"{record.ModName} 已部署"))))
             .OrderByDescending(item => item.TimestampUtc)
             .Take(6)
             .ToArray();

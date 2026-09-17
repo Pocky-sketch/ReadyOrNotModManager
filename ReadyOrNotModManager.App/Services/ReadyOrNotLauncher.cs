@@ -25,7 +25,7 @@ public static class ReadyOrNotLauncher
     {
         if (preferSteam)
         {
-            return new ReadyOrNotLaunchTarget(true, SteamLaunchUri, string.Empty, true, "Launching Ready or Not through Steam.");
+            return new ReadyOrNotLaunchTarget(true, SteamLaunchUri, string.Empty, true, "正在通过 Steam 启动 Ready or Not。");
         }
 
         var executablePath = FindDirectExecutable(installDirectory);
@@ -36,7 +36,7 @@ public static class ReadyOrNotLauncher
                 executablePath,
                 Path.GetDirectoryName(executablePath) ?? installDirectory,
                 true,
-                "Launching Ready or Not.");
+                "正在启动 Ready or Not。");
         }
 
         return new ReadyOrNotLaunchTarget(
@@ -44,7 +44,7 @@ public static class ReadyOrNotLauncher
             string.Empty,
             string.Empty,
             true,
-            "Ready or Not executable was not found. Check the game install folder in Settings.");
+            "未找到 Ready or Not 可执行文件，请在设置中检查游戏安装目录。");
     }
 
     public static string? FindDirectExecutable(string installDirectory)

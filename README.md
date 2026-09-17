@@ -1,5 +1,10 @@
 # Ready or Not Nexus Mod Manager
 
+> ### 简体中文汉化版 (zh-CN)
+> 由 [@Pocky-sketch](https://github.com/Pocky-sketch) 汉化，基于上游 **v1.3.10**。
+> 界面文案已全面中文化；**文件路径、`settings.json` 配置键名、内部状态值保持英文**，以兼容原有配置与程序逻辑。
+> 汉化脚本与翻译对照表见 [`localization/`](localization/README-zh.md)，上游发布新版本后可一键重做汉化。
+
 Version: `1.3.10`
 
 A Windows desktop utility for queueing Ready or Not mods from Nexus Mods, downloading archives through Nexus-supported API flows, expanding collections into individual mod files, and deploying Unreal mod files into the Ready or Not `Content\Paks` directory.

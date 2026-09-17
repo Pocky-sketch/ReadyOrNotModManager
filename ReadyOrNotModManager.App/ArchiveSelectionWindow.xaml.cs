@@ -43,7 +43,7 @@ public partial class ArchiveSelectionWindow : Window
     {
         if (SelectedEntryPaths.Count == 0)
         {
-            System.Windows.MessageBox.Show(this, "Choose at least one file group to deploy.", "Ready or Not Mod Manager", MessageBoxButton.OK, MessageBoxImage.Warning);
+            System.Windows.MessageBox.Show(this, "请至少选择一个要部署的文件分组。", "Ready or Not Mod Manager", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 

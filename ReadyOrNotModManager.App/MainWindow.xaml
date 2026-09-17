@@ -11,7 +11,7 @@
         ResizeMode="CanResize"
         MaxHeight="{x:Static syswin:SystemParameters.MaximizedPrimaryScreenHeight}"
         MaxWidth="{x:Static syswin:SystemParameters.MaximizedPrimaryScreenWidth}"
-        Background="Transparent">
+        Background="Transparent" FontFamily="Microsoft YaHei UI, Segoe UI" FontSize="12.5">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="6" CornerRadius="12" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
     </shell:WindowChrome.WindowChrome>
@@ -480,13 +480,13 @@
                        TextTrimming="CharacterEllipsis"
                        IsHitTestVisible="False"/>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0">
-                <Button Style="{StaticResource WindowCaptionButton}" Click="MinimizeWindow_Click" ToolTip="Minimize">
+                <Button Style="{StaticResource WindowCaptionButton}" Click="MinimizeWindow_Click" ToolTip="最小化">
                     <iconPacks:PackIconMaterial Kind="WindowMinimize" Width="15" Height="15"/>
                 </Button>
-                <Button Style="{StaticResource WindowCaptionButton}" Click="MaximizeRestoreWindow_Click" ToolTip="Maximize">
+                <Button Style="{StaticResource WindowCaptionButton}" Click="MaximizeRestoreWindow_Click" ToolTip="最大化">
                     <iconPacks:PackIconMaterial x:Name="MaximizeRestoreIcon" Kind="WindowMaximize" Width="15" Height="15"/>
                 </Button>
-                <Button Style="{StaticResource CloseCaptionButton}" Click="CloseWindow_Click" ToolTip="Close">
+                <Button Style="{StaticResource CloseCaptionButton}" Click="CloseWindow_Click" ToolTip="关闭">
                     <iconPacks:PackIconMaterial Kind="Close" Width="16" Height="16"/>
                 </Button>
             </StackPanel>
@@ -504,51 +504,51 @@
             <Border Style="{StaticResource CardBorderStyle}" Background="{DynamicResource RailBrush}" Padding="34">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="READY OR NOT" FontSize="14" Foreground="{DynamicResource AccentBrush}" FontWeight="SemiBold"/>
-                    <TextBlock Text="Deployment station setup" FontSize="38" FontWeight="SemiBold" Margin="0,8,0,16"/>
+                    <TextBlock Text="部署工作站设置" FontSize="38" FontWeight="SemiBold" Margin="0,8,0,16"/>
                     <TextBlock Text="Connect Nexus, locate the game, and choose where archives and modpacks live. You only need this screen when setup is missing or reset." TextWrapping="Wrap" Foreground="{DynamicResource MutedBrush}" FontSize="15"/>
                     <Border Margin="0,28,0,0" BorderBrush="{DynamicResource AccentBrush}" BorderThickness="0,0,0,1" Height="1"/>
-                    <TextBlock Text="Status checks" FontSize="18" FontWeight="SemiBold" Margin="0,28,0,10"/>
-                    <TextBlock x:Name="SetupNexusStatusText" Text="Nexus connection not tested" Foreground="{DynamicResource MutedBrush}" Margin="0,4"/>
-                    <TextBlock x:Name="SetupGameStatusText" Text="Game folder not validated" Foreground="{DynamicResource MutedBrush}" Margin="0,4"/>
-                    <TextBlock x:Name="SetupFoldersStatusText" Text="Storage folders not validated" Foreground="{DynamicResource MutedBrush}" Margin="0,4"/>
+                    <TextBlock Text="状态检查" FontSize="18" FontWeight="SemiBold" Margin="0,28,0,10"/>
+                    <TextBlock x:Name="SetupNexusStatusText" Text="Nexus 连接未测试" Foreground="{DynamicResource MutedBrush}" Margin="0,4"/>
+                    <TextBlock x:Name="SetupGameStatusText" Text="游戏目录未验证" Foreground="{DynamicResource MutedBrush}" Margin="0,4"/>
+                    <TextBlock x:Name="SetupFoldersStatusText" Text="存储目录未验证" Foreground="{DynamicResource MutedBrush}" Margin="0,4"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Column="1" Style="{StaticResource CardBorderStyle}" Padding="28" Margin="18,0,0,0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <TextBlock Text="Setup wizard" FontSize="24" FontWeight="SemiBold"/>
-                        <TextBlock Text="Fields turn green when ready. You can change all of this later in Settings." Foreground="{DynamicResource MutedBrush}" Margin="0,2,0,18"/>
+                        <TextBlock Text="设置向导" FontSize="24" FontWeight="SemiBold"/>
+                        <TextBlock Text="字段就绪后会变绿；以上内容之后都可以在设置里修改。" Foreground="{DynamicResource MutedBrush}" Margin="0,2,0,18"/>
 
-                        <TextBlock Text="Nexus API key" FontWeight="SemiBold"/>
+                        <TextBlock Text="Nexus API 密钥" FontWeight="SemiBold"/>
                         <PasswordBox x:Name="SetupApiKeyBox"/>
                         <WrapPanel>
-                            <Button Content="Get API Key" Click="OpenApiKeyPage_Click"/>
-                            <Button Content="Test Connection" Click="TestConnection_Click" Style="{StaticResource PrimaryButton}"/>
+                            <Button Content="获取 API 密钥" Click="OpenApiKeyPage_Click"/>
+                            <Button Content="测试连接" Click="TestConnection_Click" Style="{StaticResource PrimaryButton}"/>
                         </WrapPanel>
 
-                        <TextBlock Text="Ready or Not install folder" FontWeight="SemiBold" Margin="0,14,0,0"/>
+                        <TextBlock Text="Ready or Not 安装目录" FontWeight="SemiBold" Margin="0,14,0,0"/>
                         <TextBox x:Name="SetupGameDirectoryBox"/>
                         <WrapPanel>
-                            <Button Content="Choose game folder" Click="BrowseSetupGameDirectory_Click"/>
-                            <Button Content="Auto-detect Game Folder" Click="AutoDetectGameFolder_Click"/>
+                            <Button Content="选择游戏目录" Click="BrowseSetupGameDirectory_Click"/>
+                            <Button Content="自动检测游戏目录" Click="AutoDetectGameFolder_Click"/>
                         </WrapPanel>
 
-                        <TextBlock Text="Download folder" FontWeight="SemiBold" Margin="0,14,0,0"/>
+                        <TextBlock Text="下载目录" FontWeight="SemiBold" Margin="0,14,0,0"/>
                         <TextBox x:Name="SetupDownloadDirectoryBox"/>
-                        <Button Content="Choose download folder" Click="BrowseSetupDownloadDirectory_Click"/>
+                        <Button Content="选择下载目录" Click="BrowseSetupDownloadDirectory_Click"/>
 
-                        <TextBlock Text="Browser fallback import folder" FontWeight="SemiBold" Margin="0,14,0,0"/>
+                        <TextBlock Text="浏览器手动下载的导入目录" FontWeight="SemiBold" Margin="0,14,0,0"/>
                         <TextBox x:Name="SetupImportDirectoryBox"/>
-                        <Button Content="Choose import folder" Click="BrowseSetupImportDirectory_Click"/>
+                        <Button Content="选择导入目录" Click="BrowseSetupImportDirectory_Click"/>
 
-                        <TextBlock Text="Modpack library folder" FontWeight="SemiBold" Margin="0,14,0,0"/>
+                        <TextBlock Text="整合包库目录" FontWeight="SemiBold" Margin="0,14,0,0"/>
                         <TextBox x:Name="SetupProfileLibraryDirectoryBox"/>
-                        <Button Content="Choose library folder" Click="BrowseSetupProfileLibraryDirectory_Click"/>
+                        <Button Content="选择整合包库目录" Click="BrowseSetupProfileLibraryDirectory_Click"/>
 
                         <DockPanel Margin="0,22,0,0">
                             <TextBlock x:Name="SetupMessageText" Text="" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center"/>
-                            <Button Content="Continue" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="ContinueSetup_Click" Style="{StaticResource PrimaryButton}"/>
+                            <Button Content="继续" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="ContinueSetup_Click" Style="{StaticResource PrimaryButton}"/>
                         </DockPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -571,38 +571,38 @@
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="Ready Or Not" FontSize="25" FontWeight="Bold"/>
                         <Border Height="1" Background="{DynamicResource CardBorderBrush}" Opacity="0.9" Margin="0,9,0,10"/>
-                        <TextBlock x:Name="SidebarVersionText" Text="MOD SUITE" Style="{StaticResource SectionEyebrow}" Margin="0,0,0,20" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="SidebarVersionText" Text="模组套件" Style="{StaticResource SectionEyebrow}" Margin="0,0,0,20" TextWrapping="Wrap"/>
                         <Button x:Name="DashboardNavButton" Style="{StaticResource NavButton}" Click="DashboardNav_Click">
-                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="ViewDashboardOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Dashboard"/></StackPanel>
+                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="ViewDashboardOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="仪表盘"/></StackPanel>
                         </Button>
                         <Button x:Name="ModsNavButton" Style="{StaticResource NavButton}" Click="ModsNav_Click">
-                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="PackageVariantClosed" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Installed"/></StackPanel>
+                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="PackageVariantClosed" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="已安装"/></StackPanel>
                         </Button>
                         <Button x:Name="QueueNavButton" Style="{StaticResource NavButton}" Click="QueueNav_Click">
-                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="PlaylistCheck" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Mods"/></StackPanel>
+                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="PlaylistCheck" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="模组"/></StackPanel>
                         </Button>
                         <Button x:Name="ModpacksNavButton" Style="{StaticResource NavButton}" Click="ModpacksNav_Click">
-                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="FolderMultipleOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Modpacks"/></StackPanel>
+                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="FolderMultipleOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="整合包"/></StackPanel>
                         </Button>
                         <Button x:Name="DownloadsNavButton" Style="{StaticResource NavButton}" Click="DownloadsNav_Click">
-                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Tools" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Utilities"/></StackPanel>
+                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Tools" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="工具"/></StackPanel>
                         </Button>
                         <Button x:Name="LogsNavButton" Style="{StaticResource NavButton}" Click="LogsNav_Click">
-                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="AlertCircleOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Logs/Errors"/></StackPanel>
+                            <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="AlertCircleOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="日志/错误"/></StackPanel>
                         </Button>
                     </StackPanel>
                         <StackPanel Grid.Row="2" Margin="0,0,0,16">
                             <Button x:Name="SettingsNavButton" Style="{StaticResource NavButton}" Click="SettingsNav_Click" Margin="0,0,0,14">
-                                <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="CogOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="Settings"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="CogOutline" Width="18" Height="18" Margin="0,0,12,0"/><TextBlock Text="设置"/></StackPanel>
                             </Button>
-                            <TextBlock Text="CONNECTION STATUS" Style="{StaticResource SectionEyebrow}" Margin="0,0,0,8"/>
+                            <TextBlock Text="连接状态" Style="{StaticResource SectionEyebrow}" Margin="0,0,0,8"/>
                             <Border Style="{StaticResource CardBorderStyle}" Padding="10" Margin="0,0,0,8">
                                 <Grid>
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                     <iconPacks:PackIconMaterial x:Name="RailGameStatusIcon" Kind="HelpCircleOutline" Width="16" Height="16" Foreground="{DynamicResource AccentBrush}" Margin="0,1,9,0"/>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Game" Foreground="{DynamicResource MutedBrush}" FontSize="11"/>
-                                        <TextBlock x:Name="RailGameStatusText" Text="Unknown" TextWrapping="Wrap" FontWeight="SemiBold"/>
+                                        <TextBlock Text="游戏" Foreground="{DynamicResource MutedBrush}" FontSize="11"/>
+                                        <TextBlock x:Name="RailGameStatusText" Text="未知" TextWrapping="Wrap" FontWeight="SemiBold"/>
                                     </StackPanel>
                                 </Grid>
                             </Border>
@@ -612,16 +612,16 @@
                                     <iconPacks:PackIconMaterial x:Name="RailNexusStatusIcon" Kind="HelpCircleOutline" Width="16" Height="16" Foreground="{DynamicResource AccentBrush}" Margin="0,1,9,0"/>
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Text="Nexus" Foreground="{DynamicResource MutedBrush}" FontSize="11"/>
-                                        <TextBlock x:Name="RailNexusStatusText" Text="Unknown" TextWrapping="Wrap" FontWeight="SemiBold"/>
+                                        <TextBlock x:Name="RailNexusStatusText" Text="未知" TextWrapping="Wrap" FontWeight="SemiBold"/>
                                     </StackPanel>
                                 </Grid>
                             </Border>
                         </StackPanel>
                         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Bottom">
-                            <Button Style="{StaticResource RailHelpButton}" Click="ShowHelp_Click" ToolTip="Help">
+                            <Button Style="{StaticResource RailHelpButton}" Click="ShowHelp_Click" ToolTip="帮助">
                                 <iconPacks:PackIconMaterial Kind="Help" Width="20" Height="20"/>
                             </Button>
-                            <Button Style="{StaticResource RailHelpButton}" Click="ShowSocials_Click" ToolTip="Support and socials" Margin="8,0,0,0">
+                            <Button Style="{StaticResource RailHelpButton}" Click="ShowSocials_Click" ToolTip="支持与社交" Margin="8,0,0,0">
                                 <iconPacks:PackIconMaterial Kind="ShareVariantOutline" Width="19" Height="19"/>
                             </Button>
                         </StackPanel>
@@ -636,8 +636,8 @@
                 </Grid.RowDefinitions>
                 <DockPanel Margin="0,0,0,16">
                     <StackPanel x:Name="PageHeaderPanel">
-                        <TextBlock x:Name="PageTitleText" Text="Dashboard" FontSize="34" FontWeight="SemiBold"/>
-                        <TextBlock x:Name="PageSubtitleText" Text="Ready or Not mod deployment overview" Foreground="{DynamicResource MutedBrush}" FontSize="14"/>
+                        <TextBlock x:Name="PageTitleText" Text="仪表盘" FontSize="34" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="PageSubtitleText" Text="Ready or Not 模组部署概览" Foreground="{DynamicResource MutedBrush}" FontSize="14"/>
                     </StackPanel>
                 </DockPanel>
 
@@ -650,10 +650,10 @@
                                         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial x:Name="DashboardGameIcon" Kind="GamepadVariantOutline" Width="18" Height="18" Foreground="{DynamicResource SuccessBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="GAME STATUS" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="游戏状态" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
                                         </StackPanel>
-                                        <TextBlock x:Name="DashboardGameStatusText" Grid.Row="1" Text="Not detected" FontSize="26" FontWeight="SemiBold" Margin="0,10,0,2"/>
-                                        <TextBlock x:Name="DashboardGameHelperText" Grid.Row="2" Text="Choose or auto-detect the game folder" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="DashboardGameStatusText" Grid.Row="1" Text="未检测到" FontSize="26" FontWeight="SemiBold" Margin="0,10,0,2"/>
+                                        <TextBlock x:Name="DashboardGameHelperText" Grid.Row="2" Text="请选择或自动检测游戏目录" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
                                     </Grid>
                                 </Border>
                                 <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,12,0">
@@ -664,73 +664,73 @@
                                             <TextBlock Text="NEXUS" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel Grid.Row="1" Margin="0,10,0,2">
-                                            <TextBlock x:Name="DashboardNexusPrefixText" Text="Connected:" Foreground="{DynamicResource MutedBrush}" FontSize="11" FontWeight="SemiBold" Visibility="Collapsed"/>
-                                            <TextBlock x:Name="DashboardNexusStatusText" Text="Not tested" FontSize="24" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock x:Name="DashboardNexusPrefixText" Text="已连接：" Foreground="{DynamicResource MutedBrush}" FontSize="11" FontWeight="SemiBold" Visibility="Collapsed"/>
+                                            <TextBlock x:Name="DashboardNexusStatusText" Text="未测试" FontSize="24" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
                                         </StackPanel>
-                                        <TextBlock x:Name="DashboardNexusHelperText" Grid.Row="2" Text="Run a connection test from Settings" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="DashboardNexusHelperText" Grid.Row="2" Text="在设置中运行连接测试" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
                                     </Grid>
                                 </Border>
                                 <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,12,0">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial Kind="PackageVariantClosed" Width="18" Height="18" Foreground="{DynamicResource AccentBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="INSTALLED" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="已安装" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <TextBlock x:Name="InstalledModCountText" Text="0" FontSize="34" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,8,0,0"/>
-                                        <TextBlock Text="Tracked deployed mods" Foreground="{DynamicResource MutedBrush}"/>
+                                        <TextBlock Text="已记录部署的模组" Foreground="{DynamicResource MutedBrush}"/>
                                     </StackPanel>
                                 </Border>
                                 <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,12,0">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial Kind="PlaylistCheck" Width="18" Height="18" Foreground="{DynamicResource BlueBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="PENDING" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="待处理" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <TextBlock x:Name="PendingQueueCountText" Text="0" FontSize="34" FontWeight="SemiBold" Foreground="{DynamicResource BlueBrush}" Margin="0,8,0,0"/>
-                                        <TextBlock Text="Queue items awaiting action" Foreground="{DynamicResource MutedBrush}"/>
+                                        <TextBlock Text="等待处理的队列项" Foreground="{DynamicResource MutedBrush}"/>
                                     </StackPanel>
                                 </Border>
                                 <Border Style="{StaticResource CardBorderStyle}">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial Kind="FolderMultipleOutline" Width="18" Height="18" Foreground="{DynamicResource WarningBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="MODPACKS" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="整合包" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <TextBlock x:Name="ModpackCountText" Text="0" FontSize="34" FontWeight="SemiBold" Foreground="{DynamicResource WarningBrush}" Margin="0,8,0,0"/>
-                                        <TextBlock Text="Saved local profiles" Foreground="{DynamicResource MutedBrush}"/>
+                                        <TextBlock Text="已保存的本地配置档" Foreground="{DynamicResource MutedBrush}"/>
                                     </StackPanel>
                                 </Border>
                                 <Border Style="{StaticResource CardBorderStyle}" Margin="12,0,0,0">
                                     <Grid>
                                         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Cursor="Hand" ToolTip="Check GitHub for the latest release" MouseLeftButtonUp="RefreshUpdateStatus_Click">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Cursor="Hand" ToolTip="从 GitHub 检查最新版本" MouseLeftButtonUp="RefreshUpdateStatus_Click">
                                             <iconPacks:PackIconMaterial x:Name="DashboardUpdateIcon" Kind="Update" Width="18" Height="18" Foreground="{DynamicResource AccentBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="APP VERSION" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="应用版本" Style="{StaticResource SectionEyebrow}" VerticalAlignment="Center"/>
                                         </StackPanel>
-                                        <TextBlock x:Name="DashboardUpdateStatusText" Grid.Row="1" Text="Current: checking" TextWrapping="Wrap" FontSize="17" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,10,0,2"/>
-                                        <TextBlock x:Name="DashboardUpdateHelperText" Grid.Row="2" Text="Checking latest GitHub release" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="DashboardUpdateStatusText" Grid.Row="1" Text="当前：检查中" TextWrapping="Wrap" FontSize="17" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,10,0,2"/>
+                                        <TextBlock x:Name="DashboardUpdateHelperText" Grid.Row="2" Text="正在检查 GitHub 最新版本" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
                                     </Grid>
                                 </Border>
                             </UniformGrid>
 
                             <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,0,16">
                                 <StackPanel>
-                                    <TextBlock Text="Quick actions" FontSize="20" FontWeight="SemiBold"/>
-                                    <TextBlock Text="Paste a Nexus mod or collection URL, then queue, import, or deploy without leaving the dashboard." Foreground="{DynamicResource MutedBrush}" Margin="0,2,0,12"/>
-                                    <TextBox x:Name="UrlBox" Tag="input Nexus URL here..." ToolTip="Paste a Ready or Not mod or collection URL"/>
+                                    <TextBlock Text="快捷操作" FontSize="20" FontWeight="SemiBold"/>
+                                    <TextBlock Text="粘贴 Nexus 模组或合集链接，即可在仪表盘内完成入队、导入或部署。" Foreground="{DynamicResource MutedBrush}" Margin="0,2,0,12"/>
+                                    <TextBox x:Name="UrlBox" Tag="input Nexus URL here..." ToolTip="粘贴 Ready or Not 模组或合集的链接"/>
                                     <DockPanel LastChildFill="True">
                                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Button Content="Nexus Mods" Click="OpenReadyOrNotModsPage_Click" Style="{StaticResource ActionButton}"/>
-                                            <Button Content="Nexus Collections" Click="OpenReadyOrNotCollectionsPage_Click" Style="{StaticResource SpecialButton}"/>
-                                            <Button Content="Run Game" Click="RunGame_Click" Style="{StaticResource DeployButton}"/>
+                                            <Button Content="Nexus 合集" Click="OpenReadyOrNotCollectionsPage_Click" Style="{StaticResource SpecialButton}"/>
+                                            <Button Content="启动游戏" Click="RunGame_Click" Style="{StaticResource DeployButton}"/>
                                         </StackPanel>
                                         <WrapPanel>
-                                            <Button Content="Add Nexus URL" Click="AddUrl_Click" Tag="{Binding ElementName=UrlBox}" Style="{StaticResource ActionButton}"/>
-                                            <Button Content="Import Archive" Click="ImportArchive_Click" Style="{StaticResource ActionButton}"/>
-                                            <Button Content="Deploy all downloaded" Click="DeployDownloaded_Click" Style="{StaticResource DeployButton}"/>
-                                            <Button Content="Show Local Modpacks" Click="ShowLocalModpacks_Click" Style="{StaticResource SpecialButton}"/>
-                                            <Button Content="Open Mods Folder" Click="OpenModsFolder_Click" Style="{StaticResource ActionButton}"/>
-                                            <Button Content="Open Game Folder" Click="OpenGameFolder_Click" Style="{StaticResource ActionButton}"/>
+                                            <Button Content="添加 Nexus 链接" Click="AddUrl_Click" Tag="{Binding ElementName=UrlBox}" Style="{StaticResource ActionButton}"/>
+                                            <Button Content="导入压缩包" Click="ImportArchive_Click" Style="{StaticResource ActionButton}"/>
+                                            <Button Content="部署全部已下载" Click="DeployDownloaded_Click" Style="{StaticResource DeployButton}"/>
+                                            <Button Content="显示本地整合包" Click="ShowLocalModpacks_Click" Style="{StaticResource SpecialButton}"/>
+                                            <Button Content="打开模组目录" Click="OpenModsFolder_Click" Style="{StaticResource ActionButton}"/>
+                                            <Button Content="打开游戏目录" Click="OpenGameFolder_Click" Style="{StaticResource ActionButton}"/>
                                         </WrapPanel>
                                     </DockPanel>
                                 </StackPanel>
@@ -738,7 +738,7 @@
 
                             <Border Style="{StaticResource CardBorderStyle}">
                                 <StackPanel>
-                                    <TextBlock Text="Recent activity" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                    <TextBlock Text="最近活动" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,8"/>
                                     <ItemsControl x:Name="RecentActivityList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -767,16 +767,16 @@
                         <Border Style="{StaticResource CardBorderStyle}" Padding="0">
                             <DataGrid x:Name="InstalledModsGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Extended" AlternationCount="2">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Mod" Binding="{Binding ModName}" Width="2*"/>
-                                    <DataGridTextColumn Header="Archive" Binding="{Binding ArchivePath}" Width="2*"/>
-                                    <DataGridTextColumn Header="Installed" Binding="{Binding InstalledAtUtc, StringFormat={}{0:g}}" Width="180"/>
-                                    <DataGridTextColumn Header="Files" Binding="{Binding DeployedFiles.Count}" Width="80"/>
+                                    <DataGridTextColumn Header="模组" Binding="{Binding ModName}" Width="2*"/>
+                                    <DataGridTextColumn Header="压缩包" Binding="{Binding ArchivePath}" Width="2*"/>
+                                    <DataGridTextColumn Header="已安装" Binding="{Binding InstalledAtUtc, StringFormat={}{0:g}}" Width="180"/>
+                                    <DataGridTextColumn Header="文件" Binding="{Binding DeployedFiles.Count}" Width="80"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>
                         <WrapPanel Grid.Row="1" Margin="0,14,0,0">
-                            <Button Content="Uninstall selected" Click="UninstallInstalledSelected_Click" Style="{StaticResource DangerButton}"/>
-                            <Button Content="Open Mods Folder" Click="OpenModsFolder_Click" Style="{StaticResource ActionButton}"/>
+                            <Button Content="卸载所选" Click="UninstallInstalledSelected_Click" Style="{StaticResource DangerButton}"/>
+                            <Button Content="打开模组目录" Click="OpenModsFolder_Click" Style="{StaticResource ActionButton}"/>
                         </WrapPanel>
                     </Grid>
 
@@ -791,22 +791,22 @@
                                     <ColumnDefinition Width="180"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="QueueUrlBox" Tag="input Nexus URL here..." Margin="0,0,10,0" ToolTip="Paste a Ready or Not mod or collection URL"/>
-                                <Button Grid.Column="1" Content="Add" Click="AddUrl_Click" Tag="{Binding ElementName=QueueUrlBox}" Style="{StaticResource PrimaryButton}" Margin="0,0,18,0"/>
-                                <TextBox x:Name="QueueSearchBox" Grid.Column="2" Tag="search mods" Margin="0,0,10,0" ToolTip="Search queued mods" TextChanged="QueueFilter_Changed"/>
+                                <TextBox x:Name="QueueUrlBox" Tag="input Nexus URL here..." Margin="0,0,10,0" ToolTip="粘贴 Ready or Not 模组或合集的链接"/>
+                                <Button Grid.Column="1" Content="添加" Click="AddUrl_Click" Tag="{Binding ElementName=QueueUrlBox}" Style="{StaticResource PrimaryButton}" Margin="0,0,18,0"/>
+                                <TextBox x:Name="QueueSearchBox" Grid.Column="2" Tag="search mods" Margin="0,0,10,0" ToolTip="搜索队列中的模组" TextChanged="QueueFilter_Changed"/>
                                 <ComboBox x:Name="QueueStatusFilterBox" Grid.Column="3" Margin="0,0,10,0" SelectionChanged="QueueFilter_Changed"/>
-                                <TextBlock x:Name="QueueSummaryText" Grid.Column="4" Text="0 items" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="QueueSummaryText" Grid.Column="4" Text="0 项" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                             </Grid>
                         </Border>
                         <Border Grid.Row="1" Style="{StaticResource CardBorderStyle}" Padding="0">
                             <DataGrid x:Name="QueueGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Extended" AlternationCount="2">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Mod" Binding="{Binding ModName}" Width="2*"/>
-                                    <DataGridTextColumn Header="Version" Binding="{Binding Version}" Width="110"/>
-                                    <DataGridTextColumn Header="Mod ID" Binding="{Binding ModId}" Width="80"/>
-                                    <DataGridTextColumn Header="File ID" Binding="{Binding FileId}" Width="80"/>
-                                    <DataGridTextColumn Header="Archive" Binding="{Binding ArchivePath}" Width="2*"/>
-                                    <DataGridTemplateColumn Header="Status" Width="190">
+                                    <DataGridTextColumn Header="模组" Binding="{Binding ModName}" Width="2*"/>
+                                    <DataGridTextColumn Header="版本" Binding="{Binding Version}" Width="110"/>
+                                    <DataGridTextColumn Header="模组 ID" Binding="{Binding ModId}" Width="80"/>
+                                    <DataGridTextColumn Header="文件 ID" Binding="{Binding FileId}" Width="80"/>
+                                    <DataGridTextColumn Header="压缩包" Binding="{Binding ArchivePath}" Width="2*"/>
+                                    <DataGridTemplateColumn Header="状态" Width="190">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border CornerRadius="10" BorderThickness="1" BorderBrush="{Binding Status, Converter={StaticResource QueueStatusBrushConverter}}" Padding="8,3" HorizontalAlignment="Left" Background="#33141C22">
@@ -824,18 +824,18 @@
                         <Border Grid.Row="2" Style="{StaticResource CardBorderStyle}" Padding="12" Margin="0,12,0,0">
                             <DockPanel>
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                                    <Button Content="Download missing" Click="DownloadMissing_Click" Style="{StaticResource DownloadButton}"/>
-                                    <Button Content="Deploy selected" Click="DeploySelected_Click" Style="{StaticResource DeployButton}"/>
+                                    <Button Content="下载缺失项" Click="DownloadMissing_Click" Style="{StaticResource DownloadButton}"/>
+                                    <Button Content="部署所选" Click="DeploySelected_Click" Style="{StaticResource DeployButton}"/>
                                 </StackPanel>
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="16,0,0,0">
-                                    <Button Content="Open Nexus page" Click="OpenSelectedPage_Click" Style="{StaticResource SpecialButton}"/>
-                                    <Button Content="Import archive" Click="ImportArchive_Click" Style="{StaticResource ActionButton}"/>
+                                    <Button Content="打开 Nexus 页面" Click="OpenSelectedPage_Click" Style="{StaticResource SpecialButton}"/>
+                                    <Button Content="导入压缩包" Click="ImportArchive_Click" Style="{StaticResource ActionButton}"/>
                                 </StackPanel>
                                 <WrapPanel HorizontalAlignment="Right">
-                                    <Button Content="Delete download" Click="DeleteDownloadedArchive_Click" Style="{StaticResource DangerButton}"/>
-                                    <Button Content="Uninstall selected" Click="UninstallSelected_Click" Style="{StaticResource DangerButton}"/>
-                                    <Button Content="Remove selected" Click="RemoveSelectedQueueItems_Click" Style="{StaticResource DangerButton}"/>
-                                    <Button Content="Clear completed" Click="ClearCompleted_Click" Style="{StaticResource DangerButton}"/>
+                                    <Button Content="删除下载" Click="DeleteDownloadedArchive_Click" Style="{StaticResource DangerButton}"/>
+                                    <Button Content="卸载所选" Click="UninstallSelected_Click" Style="{StaticResource DangerButton}"/>
+                                    <Button Content="移除所选" Click="RemoveSelectedQueueItems_Click" Style="{StaticResource DangerButton}"/>
+                                    <Button Content="清除已完成" Click="ClearCompleted_Click" Style="{StaticResource DangerButton}"/>
                                 </WrapPanel>
                             </DockPanel>
                         </Border>
@@ -847,25 +847,25 @@
                             <DataGrid x:Name="ProfilesGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" AlternationCount="2" PreviewMouseRightButtonDown="ProfilesGrid_PreviewMouseRightButtonDown">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="Rename modpack" Click="RenameProfile_Click"/>
+                                        <MenuItem Header="重命名整合包" Click="RenameProfile_Click"/>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
-                                    <DataGridTextColumn Header="Mods" Binding="{Binding Items.Count}" Width="80"/>
-                                    <DataGridTextColumn Header="Updated" Binding="{Binding UpdatedAtUtc, StringFormat={}{0:g}}" Width="180"/>
-                                    <DataGridTextColumn Header="Profile ID" Binding="{Binding ProfileId}" Width="2*"/>
+                                    <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="2*"/>
+                                    <DataGridTextColumn Header="模组" Binding="{Binding Items.Count}" Width="80"/>
+                                    <DataGridTextColumn Header="更新时间" Binding="{Binding UpdatedAtUtc, StringFormat={}{0:g}}" Width="180"/>
+                                    <DataGridTextColumn Header="配置档 ID" Binding="{Binding ProfileId}" Width="2*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>
                         <DockPanel Grid.Row="1" Margin="0,12,0,0">
-                            <TextBox x:Name="ProfileNameBox" Width="260" DockPanel.Dock="Left" Tag="Input Profile Name" ToolTip="Profile name"/>
+                            <TextBox x:Name="ProfileNameBox" Width="260" DockPanel.Dock="Left" Tag="Input Profile Name" ToolTip="配置档名称"/>
                             <WrapPanel HorizontalAlignment="Right">
-                                <Button Content="Save current as new" Click="SaveProfileNew_Click" Style="{StaticResource SpecialButton}"/>
-                                <Button Content="Update selected" Click="UpdateProfileSelected_Click" Style="{StaticResource SpecialButton}"/>
-                                <Button Content="Load selected" Click="LoadProfileSelected_Click" Style="{StaticResource ActionButton}"/>
-                                <Button Content="Activate selected" Click="ActivateProfileSelected_Click" Style="{StaticResource DeployButton}"/>
-                                <Button Content="Delete selected" Click="DeleteProfileSelected_Click" Style="{StaticResource DangerButton}"/>
+                                <Button Content="当前配置另存为新档" Click="SaveProfileNew_Click" Style="{StaticResource SpecialButton}"/>
+                                <Button Content="更新所选" Click="UpdateProfileSelected_Click" Style="{StaticResource SpecialButton}"/>
+                                <Button Content="加载所选" Click="LoadProfileSelected_Click" Style="{StaticResource ActionButton}"/>
+                                <Button Content="激活所选" Click="ActivateProfileSelected_Click" Style="{StaticResource DeployButton}"/>
+                                <Button Content="删除所选" Click="DeleteProfileSelected_Click" Style="{StaticResource DangerButton}"/>
                             </WrapPanel>
                         </DockPanel>
                     </Grid>
@@ -877,20 +877,20 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial Kind="ShareVariantOutline" Width="18" Height="18" Foreground="{DynamicResource WarningBrush}" Margin="0,0,10,0"/>
-                                            <TextBlock Text="Import / Export Modpacks" FontSize="20" FontWeight="SemiBold"/>
+                                            <TextBlock Text="导入 / 导出整合包" FontSize="20" FontWeight="SemiBold"/>
                                         </StackPanel>
                                         <TextBlock Text="Share Nexus mod links without sending downloaded archives. Imported modpacks are saved locally and loaded into Mods." Foreground="{DynamicResource MutedBrush}" Margin="0,6,0,14" TextWrapping="Wrap"/>
-                                        <ComboBox x:Name="SharedModpackSelector" Margin="0,0,0,4" ToolTip="Choose a saved local modpack to export">
+                                        <ComboBox x:Name="SharedModpackSelector" Margin="0,0,0,4" ToolTip="选择要导出的本地整合包">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Name}" Foreground="{DynamicResource TextBrush}"/>
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
-                                        <TextBlock x:Name="SharedModpackExportStateText" Text="Choose a saved local modpack to export." Foreground="{DynamicResource MutedBrush}" Margin="0,0,0,10"/>
+                                        <TextBlock x:Name="SharedModpackExportStateText" Text="请选择要导出的本地整合包。" Foreground="{DynamicResource MutedBrush}" Margin="0,0,0,10"/>
                                         <WrapPanel>
-                                            <Button x:Name="ExportSharedModpackButton" Content="Export modpack" Click="ExportSharedModpack_Click" Style="{StaticResource SpecialButton}"/>
-                                            <Button Content="Import modpack" Click="ImportSharedModpack_Click" Style="{StaticResource ActionButton}"/>
+                                            <Button x:Name="ExportSharedModpackButton" Content="导出整合包" Click="ExportSharedModpack_Click" Style="{StaticResource SpecialButton}"/>
+                                            <Button Content="导入整合包" Click="ImportSharedModpack_Click" Style="{StaticResource ActionButton}"/>
                                         </WrapPanel>
                                     </StackPanel>
                                 </Border>
@@ -899,13 +899,13 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial Kind="ArchiveOutline" Width="18" Height="18" Foreground="{DynamicResource BlueBrush}" Margin="0,0,10,0"/>
-                                            <TextBlock Text="Archive Locations" FontSize="20" FontWeight="SemiBold"/>
+                                            <TextBlock Text="压缩包位置" FontSize="20" FontWeight="SemiBold"/>
                                         </StackPanel>
-                                        <TextBlock Text="Open retained downloads, import manual archives, or download missing queued files." Foreground="{DynamicResource MutedBrush}" Margin="0,6,0,14" TextWrapping="Wrap"/>
+                                        <TextBlock Text="打开已保留的下载、导入手动下载的压缩包，或补下队列中缺失的文件。" Foreground="{DynamicResource MutedBrush}" Margin="0,6,0,14" TextWrapping="Wrap"/>
                                         <WrapPanel>
-                                            <Button Content="Open download folder" Click="OpenDownloadDirectory_Click" Style="{StaticResource ActionButton}"/>
-                                            <Button Content="Import archive" Click="ImportArchive_Click" Style="{StaticResource ActionButton}"/>
-                                            <Button Content="Download missing queue items" Click="DownloadMissing_Click" Style="{StaticResource DownloadButton}"/>
+                                            <Button Content="打开下载目录" Click="OpenDownloadDirectory_Click" Style="{StaticResource ActionButton}"/>
+                                            <Button Content="导入压缩包" Click="ImportArchive_Click" Style="{StaticResource ActionButton}"/>
+                                            <Button Content="下载队列中缺失的项" Click="DownloadMissing_Click" Style="{StaticResource DownloadButton}"/>
                                         </WrapPanel>
                                     </StackPanel>
                                 </Border>
@@ -916,29 +916,29 @@
                                     <StackPanel DockPanel.Dock="Left">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <iconPacks:PackIconMaterial Kind="DeleteSweepOutline" Width="18" Height="18" Foreground="{DynamicResource DangerBrush}" Margin="0,0,10,0"/>
-                                            <TextBlock Text="Cleanup" FontSize="20" FontWeight="SemiBold"/>
+                                            <TextBlock Text="清理" FontSize="20" FontWeight="SemiBold"/>
                                         </StackPanel>
                                         <TextBlock Text="Remove selected downloaded archive files from disk without uninstalling deployed mod files." Foreground="{DynamicResource MutedBrush}" Margin="0,6,24,0" TextWrapping="Wrap"/>
                                     </StackPanel>
-                                    <Button Content="Delete selected download" Click="DeleteDownloadedArchive_Click" Style="{StaticResource DangerButton}" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    <Button Content="删除所选下载" Click="DeleteDownloadedArchive_Click" Style="{StaticResource DangerButton}" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                                 </DockPanel>
                             </Border>
 
                             <Border Style="{StaticResource CardBorderStyle}">
                                 <StackPanel>
-                                    <TextBlock Text="Planned Utilities" FontSize="20" FontWeight="SemiBold"/>
-                                    <TextBlock Text="Future repair and safety tools for larger mod setups." Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,14"/>
+                                    <TextBlock Text="计划中的工具" FontSize="20" FontWeight="SemiBold"/>
+                                    <TextBlock Text="面向大型模组组合的修复与安全工具（开发中）。" Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,14"/>
                                     <UniformGrid Columns="3">
                                         <Border Background="#55141C22" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,10,0" Opacity="0.72" IsHitTestVisible="False">
                                             <StackPanel>
                                                 <DockPanel>
                                                     <iconPacks:PackIconMaterial Kind="Radar" Width="22" Height="22" Foreground="{DynamicResource InactiveBrush}"/>
                                                     <Border DockPanel.Dock="Right" BorderBrush="{DynamicResource WarningBrush}" BorderThickness="1" CornerRadius="8" Padding="8,2">
-                                                        <TextBlock Text="Coming soon" FontSize="11" Foreground="{DynamicResource WarningBrush}" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="即将推出" FontSize="11" Foreground="{DynamicResource WarningBrush}" FontWeight="SemiBold"/>
                                                     </Border>
                                                 </DockPanel>
-                                                <TextBlock Text="Mod Conflict Scanner" FontSize="17" FontWeight="SemiBold" Margin="0,14,0,6"/>
-                                                <TextBlock Text="Scan installed and queued mods for possible file conflicts." Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="模组冲突扫描" FontSize="17" FontWeight="SemiBold" Margin="0,14,0,6"/>
+                                                <TextBlock Text="扫描已安装与队列中的模组，查找可能的文件冲突。" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Background="#55141C22" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="5,0" Opacity="0.72" IsHitTestVisible="False">
@@ -946,11 +946,11 @@
                                                 <DockPanel>
                                                     <iconPacks:PackIconMaterial Kind="ContentSaveOutline" Width="22" Height="22" Foreground="{DynamicResource InactiveBrush}"/>
                                                     <Border DockPanel.Dock="Right" BorderBrush="{DynamicResource WarningBrush}" BorderThickness="1" CornerRadius="8" Padding="8,2">
-                                                        <TextBlock Text="Coming soon" FontSize="11" Foreground="{DynamicResource WarningBrush}" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="即将推出" FontSize="11" Foreground="{DynamicResource WarningBrush}" FontWeight="SemiBold"/>
                                                     </Border>
                                                 </DockPanel>
-                                                <TextBlock Text="Backup Deployed Mods" FontSize="17" FontWeight="SemiBold" Margin="0,14,0,6"/>
-                                                <TextBlock Text="Create a backup of the current deployed mod setup." Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="备份已部署模组" FontSize="17" FontWeight="SemiBold" Margin="0,14,0,6"/>
+                                                <TextBlock Text="为当前已部署的模组组合创建备份。" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Background="#55141C22" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="10,0,0,0" Opacity="0.72" IsHitTestVisible="False">
@@ -958,11 +958,11 @@
                                                 <DockPanel>
                                                     <iconPacks:PackIconMaterial Kind="Restore" Width="22" Height="22" Foreground="{DynamicResource InactiveBrush}"/>
                                                     <Border DockPanel.Dock="Right" BorderBrush="{DynamicResource WarningBrush}" BorderThickness="1" CornerRadius="8" Padding="8,2">
-                                                        <TextBlock Text="Coming soon" FontSize="11" Foreground="{DynamicResource WarningBrush}" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="即将推出" FontSize="11" Foreground="{DynamicResource WarningBrush}" FontWeight="SemiBold"/>
                                                     </Border>
                                                 </DockPanel>
-                                                <TextBlock Text="Restore Previous Deployment" FontSize="17" FontWeight="SemiBold" Margin="0,14,0,6"/>
-                                                <TextBlock Text="Restore the last known working deployment backup." Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="恢复上一次部署" FontSize="17" FontWeight="SemiBold" Margin="0,14,0,6"/>
+                                                <TextBlock Text="恢复到上一次可用的部署备份。" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
                                             </StackPanel>
                                         </Border>
                                     </UniformGrid>
@@ -975,57 +975,57 @@
                         <StackPanel MaxWidth="900" HorizontalAlignment="Center">
                             <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,0,14">
                                 <StackPanel MaxWidth="680" HorizontalAlignment="Center">
-                                    <TextBlock Text="NEXUS CONNECTION" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Nexus API key" FontWeight="SemiBold" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="NEXUS 连接" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Nexus API 密钥" FontWeight="SemiBold" Margin="0,12,0,0" HorizontalAlignment="Center"/>
                                     <PasswordBox x:Name="ApiKeyBox"/>
-                                    <CheckBox x:Name="AutoTestNexusOnLaunchBox" Content="Auto-test Nexus connection on app launch" HorizontalAlignment="Center"/>
-                                    <WrapPanel HorizontalAlignment="Center"><Button Content="Save settings" Click="SaveSettings_Click" Style="{StaticResource SpecialButton}"/><Button Content="Get API key" Click="OpenApiKeyPage_Click" Style="{StaticResource ActionButton}"/><Button Content="Test Connection" Click="TestConnection_Click" Style="{StaticResource DownloadButton}"/></WrapPanel>
+                                    <CheckBox x:Name="AutoTestNexusOnLaunchBox" Content="启动时自动测试 Nexus 连接" HorizontalAlignment="Center"/>
+                                    <WrapPanel HorizontalAlignment="Center"><Button Content="保存设置" Click="SaveSettings_Click" Style="{StaticResource SpecialButton}"/><Button Content="获取 API 密钥" Click="OpenApiKeyPage_Click" Style="{StaticResource ActionButton}"/><Button Content="测试连接" Click="TestConnection_Click" Style="{StaticResource DownloadButton}"/></WrapPanel>
                                 </StackPanel>
                             </Border>
 
                             <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,0,14">
                                 <StackPanel MaxWidth="680" HorizontalAlignment="Center">
-                                    <TextBlock Text="GAME FOLDERS" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Ready or Not install folder" FontWeight="SemiBold" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="游戏目录" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Ready or Not 安装目录" FontWeight="SemiBold" Margin="0,12,0,0" HorizontalAlignment="Center"/>
                                     <TextBox x:Name="GameDirectoryBox"/>
-                                    <WrapPanel HorizontalAlignment="Center"><Button Content="Choose game folder" Click="BrowseGameDirectory_Click" Style="{StaticResource ActionButton}"/><Button Content="Auto-detect Game Folder" Click="AutoDetectGameFolder_Click" Style="{StaticResource DownloadButton}"/><Button Content="Open game folder" Click="OpenGameFolder_Click" Style="{StaticResource ActionButton}"/></WrapPanel>
+                                    <WrapPanel HorizontalAlignment="Center"><Button Content="选择游戏目录" Click="BrowseGameDirectory_Click" Style="{StaticResource ActionButton}"/><Button Content="自动检测游戏目录" Click="AutoDetectGameFolder_Click" Style="{StaticResource DownloadButton}"/><Button Content="打开游戏目录" Click="OpenGameFolder_Click" Style="{StaticResource ActionButton}"/></WrapPanel>
 
-                                    <TextBlock Text="Download folder" FontWeight="SemiBold" Margin="0,14,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="下载目录" FontWeight="SemiBold" Margin="0,14,0,0" HorizontalAlignment="Center"/>
                                     <TextBox x:Name="DownloadDirectoryBox"/>
-                                    <WrapPanel HorizontalAlignment="Center"><Button Content="Choose download folder" Click="BrowseDownloadDirectory_Click" Style="{StaticResource ActionButton}"/><Button Content="Open folder" Click="OpenDownloadDirectory_Click" Style="{StaticResource ActionButton}"/></WrapPanel>
+                                    <WrapPanel HorizontalAlignment="Center"><Button Content="选择下载目录" Click="BrowseDownloadDirectory_Click" Style="{StaticResource ActionButton}"/><Button Content="打开目录" Click="OpenDownloadDirectory_Click" Style="{StaticResource ActionButton}"/></WrapPanel>
 
-                                    <TextBlock Text="Browser fallback import folder" FontWeight="SemiBold" Margin="0,14,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="浏览器手动下载的导入目录" FontWeight="SemiBold" Margin="0,14,0,0" HorizontalAlignment="Center"/>
                                     <TextBox x:Name="ImportDirectoryBox"/>
-                                    <Button Content="Choose import folder" Click="BrowseImportDirectory_Click" Style="{StaticResource ActionButton}" HorizontalAlignment="Center"/>
+                                    <Button Content="选择导入目录" Click="BrowseImportDirectory_Click" Style="{StaticResource ActionButton}" HorizontalAlignment="Center"/>
 
-                                    <TextBlock Text="Modpack library folder" FontWeight="SemiBold" Margin="0,14,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="整合包库目录" FontWeight="SemiBold" Margin="0,14,0,0" HorizontalAlignment="Center"/>
                                     <TextBox x:Name="ProfileLibraryDirectoryBox"/>
-                                    <WrapPanel HorizontalAlignment="Center"><Button Content="Choose library folder" Click="BrowseProfileLibraryDirectory_Click" Style="{StaticResource ActionButton}"/><Button Content="Open library" Click="OpenProfileLibraryDirectory_Click" Style="{StaticResource ActionButton}"/></WrapPanel>
+                                    <WrapPanel HorizontalAlignment="Center"><Button Content="选择整合包库目录" Click="BrowseProfileLibraryDirectory_Click" Style="{StaticResource ActionButton}"/><Button Content="打开库目录" Click="OpenProfileLibraryDirectory_Click" Style="{StaticResource ActionButton}"/></WrapPanel>
                                 </StackPanel>
                             </Border>
 
                             <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,0,14">
                                 <StackPanel MaxWidth="680" HorizontalAlignment="Center">
-                                    <TextBlock Text="APPEARANCE" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Colour scheme" FontWeight="SemiBold" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="外观" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="配色方案" FontWeight="SemiBold" Margin="0,12,0,0" HorizontalAlignment="Center"/>
                                     <ComboBox x:Name="ThemeSelector" DisplayMemberPath="DisplayName" SelectedValuePath="Name" SelectionChanged="ThemeSelection_Changed" Margin="0,6,0,0"/>
                                 </StackPanel>
                             </Border>
 
                             <Border Style="{StaticResource CardBorderStyle}" Margin="0,0,0,14">
                                 <StackPanel MaxWidth="680" HorizontalAlignment="Center">
-                                    <TextBlock Text="ADVANCED" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
-                                    <CheckBox x:Name="AdvancedOptionsBox" Content="Advanced deploy options" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="高级" Style="{StaticResource SectionEyebrow}" HorizontalAlignment="Center"/>
+                                    <CheckBox x:Name="AdvancedOptionsBox" Content="高级部署选项" Margin="0,12,0,0" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
 
                             <Border Style="{StaticResource CardBorderStyle}" BorderBrush="{DynamicResource DangerBrush}">
                                 <StackPanel MaxWidth="680" HorizontalAlignment="Center">
-                                    <TextBlock Text="DANGER ZONE" Style="{StaticResource SectionEyebrow}" Foreground="{DynamicResource DangerBrush}" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Reset setup or clear local settings, queue, manifests, and logs." Foreground="{DynamicResource MutedBrush}" Margin="0,10,0,8" TextAlignment="Center" TextWrapping="Wrap"/>
+                                    <TextBlock Text="危险区" Style="{StaticResource SectionEyebrow}" Foreground="{DynamicResource DangerBrush}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="重置设置向导，或清除本地设置、队列、清单与日志。" Foreground="{DynamicResource MutedBrush}" Margin="0,10,0,8" TextAlignment="Center" TextWrapping="Wrap"/>
                                     <WrapPanel HorizontalAlignment="Center">
-                                        <Button Content="Reset setup wizard" Click="ResetSetupWizard_Click" Style="{StaticResource SpecialButton}"/>
-                                        <Button Content="Clear user data" Click="ClearUserData_Click" Style="{StaticResource DangerButton}"/>
+                                        <Button Content="重置设置向导" Click="ResetSetupWizard_Click" Style="{StaticResource SpecialButton}"/>
+                                        <Button Content="清除用户数据" Click="ClearUserData_Click" Style="{StaticResource DangerButton}"/>
                                     </WrapPanel>
                                 </StackPanel>
                             </Border>
@@ -1037,20 +1037,20 @@
                         <Border Style="{StaticResource CardBorderStyle}" Padding="0">
                             <DataGrid x:Name="ErrorsGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" AlternationCount="2">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Time" Binding="{Binding TimestampUtc, StringFormat={}{0:g}}" Width="150"/>
-                                    <DataGridTextColumn Header="Operation" Binding="{Binding Operation}" Width="120"/>
-                                    <DataGridTextColumn Header="Mod" Binding="{Binding ModName}" Width="220"/>
-                                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="2*"/>
-                                    <DataGridTextColumn Header="Archive" Binding="{Binding ArchivePath}" Width="2*"/>
+                                    <DataGridTextColumn Header="时间" Binding="{Binding TimestampUtc, StringFormat={}{0:g}}" Width="150"/>
+                                    <DataGridTextColumn Header="操作" Binding="{Binding Operation}" Width="120"/>
+                                    <DataGridTextColumn Header="模组" Binding="{Binding ModName}" Width="220"/>
+                                    <DataGridTextColumn Header="信息" Binding="{Binding Message}" Width="2*"/>
+                                    <DataGridTextColumn Header="压缩包" Binding="{Binding ArchivePath}" Width="2*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>
                         <WrapPanel Grid.Row="1" Margin="0,12,0,0">
-                            <Button Content="Open Nexus page" Click="OpenErrorNexus_Click" Style="{StaticResource ActionButton}"/>
-                            <Button Content="Open game folder" Click="OpenErrorGameFolder_Click" Style="{StaticResource ActionButton}"/>
-                            <Button Content="Open archive folder" Click="OpenErrorArchiveFolder_Click" Style="{StaticResource ActionButton}"/>
-                            <Button Content="Copy manual fix note" Click="CopyErrorManualFix_Click" Style="{StaticResource SpecialButton}"/>
-                            <Button Content="Clear errors" Click="ClearErrors_Click" Style="{StaticResource DangerButton}"/>
+                            <Button Content="打开 Nexus 页面" Click="OpenErrorNexus_Click" Style="{StaticResource ActionButton}"/>
+                            <Button Content="打开游戏目录" Click="OpenErrorGameFolder_Click" Style="{StaticResource ActionButton}"/>
+                            <Button Content="打开压缩包目录" Click="OpenErrorArchiveFolder_Click" Style="{StaticResource ActionButton}"/>
+                            <Button Content="复制手动修复说明" Click="CopyErrorManualFix_Click" Style="{StaticResource SpecialButton}"/>
+                            <Button Content="清除错误" Click="ClearErrors_Click" Style="{StaticResource DangerButton}"/>
                         </WrapPanel>
                     </Grid>
                 </Grid>
@@ -1061,7 +1061,7 @@
                             <ProgressBar x:Name="OverallProgressBar" Width="420" Height="20" Minimum="0" Maximum="100" Value="0" Margin="0,0,16,0"/>
                             <TextBlock x:Name="ProgressText" Text="" Foreground="{DynamicResource TextBrush}" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,16,0"/>
                         </StackPanel>
-                        <TextBlock x:Name="StatusText" Text="Ready" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <TextBlock x:Name="StatusText" Text="就绪" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Right"/>
                     </DockPanel>
                 </Border>
             </Grid>
@@ -1077,19 +1077,19 @@
                     </Grid.RowDefinitions>
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Left">
-                            <TextBlock Text="How to use Ready Or Not Mod Manager" FontSize="24" FontWeight="SemiBold"/>
-                            <TextBlock Text="A quick guide for the normal mod workflow." Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="Ready Or Not Mod Manager 使用指南" FontSize="24" FontWeight="SemiBold"/>
+                            <TextBlock Text="常规模组使用流程速览。" Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
                         </StackPanel>
-                        <Button DockPanel.Dock="Right" Click="CloseHelp_Click" Style="{StaticResource RailHelpButton}" Margin="18,0,0,0" ToolTip="Close help" HorizontalAlignment="Right">
+                        <Button DockPanel.Dock="Right" Click="CloseHelp_Click" Style="{StaticResource RailHelpButton}" Margin="18,0,0,0" ToolTip="关闭帮助" HorizontalAlignment="Right">
                             <iconPacks:PackIconMaterial Kind="Close" Width="18" Height="18"/>
                         </Button>
                     </DockPanel>
                     <StackPanel Grid.Row="1" Margin="0,22,0,0">
-                        <TextBlock Text="1. Complete Setup with your Nexus API key and Ready or Not install folder." TextWrapping="Wrap" Margin="0,0,0,10"/>
+                        <TextBlock Text="1. 完成设置：填入 Nexus API 密钥并选择 Ready or Not 安装目录。" TextWrapping="Wrap" Margin="0,0,0,10"/>
                         <TextBlock Text="2. Use Mods to add Nexus mod or collection URLs, or use Utilities to import archives and shared modpack files." TextWrapping="Wrap" Margin="0,0,0,10"/>
                         <TextBlock Text="3. Download missing queue items, then deploy downloaded mods into ReadyOrNot\\Content\\Paks." TextWrapping="Wrap" Margin="0,0,0,10"/>
-                        <TextBlock Text="4. Save deployed mods as Modpacks when you want to switch between different setups later." TextWrapping="Wrap" Margin="0,0,0,10"/>
-                        <TextBlock Text="5. Check Logs/Errors if a mod fails. The app skips failed items so the rest of the queue can continue." TextWrapping="Wrap"/>
+                        <TextBlock Text="4. 想在不同模组组合之间切换时，把已部署的模组保存为整合包。" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                        <TextBlock Text="5. 若某个模组失败，查看「日志/错误」。程序会跳过失败项，让队列其余部分继续执行。" TextWrapping="Wrap"/>
                     </StackPanel>
                     <Border Grid.Row="2" Background="#44101922" BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,22,0,0">
                         <TextBlock Text="Tip: downloads, API keys, logs, and modpack settings are stored locally on this PC. Shared modpack exports contain links only, not archive files." Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
@@ -1108,30 +1108,30 @@
                     </Grid.RowDefinitions>
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Left">
-                            <TextBlock Text="Support / Socials" FontSize="24" FontWeight="SemiBold"/>
-                            <TextBlock Text="Report bugs, request help, or get in contact." Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="支持 / 社交" FontSize="24" FontWeight="SemiBold"/>
+                            <TextBlock Text="反馈问题、寻求帮助或联系作者。" Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
                         </StackPanel>
-                        <Button DockPanel.Dock="Right" Click="CloseSocials_Click" Style="{StaticResource RailHelpButton}" Margin="18,0,0,0" ToolTip="Close socials" HorizontalAlignment="Right">
+                        <Button DockPanel.Dock="Right" Click="CloseSocials_Click" Style="{StaticResource RailHelpButton}" Margin="18,0,0,0" ToolTip="关闭社交链接" HorizontalAlignment="Right">
                             <iconPacks:PackIconMaterial Kind="Close" Width="18" Height="18"/>
                         </Button>
                     </DockPanel>
 
                     <UniformGrid Grid.Row="1" Columns="3" Margin="0,24,0,0">
-                        <Button Click="OpenGithub_Click" Style="{StaticResource ActionButton}" Padding="14" Margin="0,0,10,0" ToolTip="Open GitHub">
+                        <Button Click="OpenGithub_Click" Style="{StaticResource ActionButton}" Padding="14" Margin="0,0,10,0" ToolTip="打开 GitHub">
                             <StackPanel>
                                 <iconPacks:PackIconMaterial Kind="CodeBraces" Width="26" Height="26" HorizontalAlignment="Center" Margin="0,0,0,8"/>
                                 <TextBlock Text="GitHub" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                                 <TextBlock Text="jdharleyjones" Foreground="{DynamicResource MutedBrush}" FontSize="11" HorizontalAlignment="Center" Margin="0,4,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Button Click="OpenInstagram_Click" Style="{StaticResource SpecialButton}" Padding="14" Margin="5,0,5,0" ToolTip="Open Instagram">
+                        <Button Click="OpenInstagram_Click" Style="{StaticResource SpecialButton}" Padding="14" Margin="5,0,5,0" ToolTip="打开 Instagram">
                             <StackPanel>
                                 <iconPacks:PackIconMaterial Kind="CameraOutline" Width="26" Height="26" HorizontalAlignment="Center" Margin="0,0,0,8"/>
                                 <TextBlock Text="Instagram" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                                 <TextBlock Text="cyb3r.sk4ter" Foreground="{DynamicResource MutedBrush}" FontSize="11" HorizontalAlignment="Center" Margin="0,4,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Button Click="CopyDiscord_Click" Style="{StaticResource PrimaryButton}" Padding="14" Margin="10,0,0,0" ToolTip="Copy Discord username">
+                        <Button Click="CopyDiscord_Click" Style="{StaticResource PrimaryButton}" Padding="14" Margin="10,0,0,0" ToolTip="复制 Discord 用户名">
                             <StackPanel>
                                 <iconPacks:PackIconMaterial Kind="ForumOutline" Width="26" Height="26" HorizontalAlignment="Center" Margin="0,0,0,8"/>
                                 <TextBlock Text="Discord" FontWeight="SemiBold" HorizontalAlignment="Center"/>
